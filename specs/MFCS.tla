@@ -1,12 +1,12 @@
 ------------------------------ MODULE MFCS ------------------------------
 
-EXTENDS Naturals, Sequences
+EXTENDS Naturals
 
 (*
-  MFCS – Minimal skeleton specification
+  MFCS – Minimal skeleton specification for formal verification.
 
   - State: a simple control state machine with a counter.
-  - Invariants: counter is always a natural, never negative.
+  - Invariants: state type safety and counter bounds.
 *)
 
 CONSTANTS
