@@ -1,0 +1,59 @@
+name: MFCS Formal Verification
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y openjdk-11-jdk-headless jq
+
+      - name: Download TLA+ tools
+        run: |
+          cd /tmp
+          wget -q https://github.com/tlaplus/tlaplus/releases/download/v1.8.0/tla2tools.jar
+          cp tla2tools.jar $GITHUB_WORKSPACE/
+          echo "TLA+ tools ready"
+
+      - name: Run TLC model checker
+        run: |
+          cd $GITHUB_WORKSPACE
+          echo "Running TLC verification..."
+          java -cp tla2tools.jar tlc2.TLC -workers 4 -config models/default/MC.cfg specs/MFCS.tla
+          echo "TLC verification passed ✓"
+
+      - name: Run TLAPS (optional)
+        continue-on-error: true
+        run: |
+          cd $GITHUB_WORKSPACE
+          if command -v tlapm &> /dev/null; then
+            echo "Running TLAPS proof checker..."
+            tlapm specs/MFCS.tla
+            echo "TLAPS verification passed ✓"
+          else
+            echo "TLAPS not installed (optional dependency)"
+          fi
+
+      - name: Verify integrity manifest
+        run: |
+          cd $GITHUB_WORKSPACE
+          echo "Checking SHA256SUMS integrity..."
+          sha256sum -c SHA256SUMS.txt --ignore-missing
+          echo "Integrity verified ✓"
+
+      - name: Report success
+        run: |
+          echo "✓ MFCS verification pipeline successful"
+          echo "  - TLC model checking: PASS"
+          echo "  - Integrity verification: PASS"
