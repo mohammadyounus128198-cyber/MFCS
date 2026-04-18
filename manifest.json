@@ -1,0 +1,36 @@
+{
+  "name": "MFCS",
+  "version": "1.0.0",
+  "description": "Mechanized Formal Control System (MFCS) - canonical artifact set",
+  "schema_version": "1.0",
+  "artifacts": [
+    {
+      "id": "specs-mfcs-tla",
+      "path": "specs/MFCS.tla",
+      "type": "tla-spec",
+      "role": "core-specification"
+    },
+    {
+      "id": "models-default",
+      "path": "models/default/MC.cfg",
+      "type": "tlc-model",
+      "role": "default-model"
+    },
+    {
+      "id": "ci-tlc-config",
+      "path": "ci/tlc-config.json",
+      "type": "ci-config",
+      "role": "tlc-verification"
+    },
+    {
+      "id": "ci-tlaps-config",
+      "path": "ci/tlaps-config.json",
+      "type": "ci-config",
+      "role": "tlaps-verification"
+    }
+  ],
+  "integrity": {
+    "checksum_manifest": "SHA256SUMS.txt",
+    "algorithm": "sha256"
+  }
+}

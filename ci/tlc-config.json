@@ -1,0 +1,7 @@
+{
+  "spec": "specs/MFCS.tla",
+  "config": "models/default/MC.cfg",
+  "workers": 4,
+  "depth": 0,
+  "tool": "tlc"
+}

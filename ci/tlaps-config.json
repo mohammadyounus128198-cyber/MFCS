@@ -1,0 +1,5 @@
+{
+  "spec": "specs/MFCS.tla",
+  "mode": "batch",
+  "tool": "tlaps"
+}
