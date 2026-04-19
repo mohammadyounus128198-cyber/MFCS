@@ -1,0 +1,93 @@
+# ─────────────────────────────────────────────────────────────
+# MFCS — Sovereign Lattice Codex CI
+# Runs TLC model-checking against the representative 3-component
+# model and packages the artifact ZIP.
+#
+# Artifact upload is commented out until the maintainer approves.
+# ─────────────────────────────────────────────────────────────
+name: TLC Model Check
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'specs/**'
+      - '.github/workflows/tlc-ci.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'specs/**'
+
+jobs:
+  tlc-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Download TLA+ Tools
+        run: |
+          mkdir -p tools/tla
+          curl -L -o tools/tla/tla2tools.jar \
+            https://github.com/tlaplus/tlaplus/releases/download/v1.8.0/tla2tools.jar
+
+      - name: Run TLC — representative model (3 components)
+        run: |
+          java -XX:+UseParallelGC \
+               -Dtlc2.tool.fp.FPSet.impl=tlc2.tool.fp.OffHeapDiskFPSet \
+               -cp tools/tla/tla2tools.jar tlc2.TLC \
+               specs/MFCS.tla \
+               -config specs/MFCS.cfg \
+               -workers auto \
+               -deadlock \
+               -cleanup \
+            | tee tlc/MFCS.tla.out
+
+      - name: Check TLC exit code
+        run: |
+          # TLC returns 0 on success, 12 on violations, 13 on deadlock
+          if grep -q "Model checking completed. No error has been found." tlc/MFCS.tla.out; then
+            echo "✓ TLC passed — all invariants hold."
+          else
+            echo "✗ TLC found errors. See tlc/MFCS.tla.out"
+            exit 1
+          fi
+
+      - name: Compute SHA-256 manifest
+        run: |
+          find . -type f \
+            ! -path './.git/*' \
+            ! -path './tools/tla/*' \
+            ! -name 'manifest.txt' \
+            -print0 \
+          | sort -z \
+          | xargs -0 sha256sum > tools/manifest.txt
+          echo "✓ Manifest written with $(wc -l < tools/manifest.txt) entries."
+
+      - name: Package artifact ZIP
+        run: |
+          DATESTAMP=$(date +%Y%m%d)
+          zip -r "mfcs-artifact-${DATESTAMP}.zip" \
+            specs/ docs/ figures/ proofs/ tlc/ tools/ scripts/ \
+            README.md ACCESSIBILITY.md \
+            -x '*.git*' 'tools/tla/*'
+          echo "✓ Artifact ZIP created: mfcs-artifact-${DATESTAMP}.zip"
+
+      # ──────────────────────────────────────────────────────
+      # Uncomment the block below when ready to publish
+      # artifacts to GitHub Actions.
+      # ──────────────────────────────────────────────────────
+      # - name: Upload artifact
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: mfcs-artifact
+      #     path: mfcs-artifact-*.zip
+      #     retention-days: 90

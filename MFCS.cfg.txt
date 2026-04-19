@@ -1,0 +1,18 @@
+\* MFCS TLC Model Configuration
+\* Representative model: 3 components, MaxEnergy = 3
+\* Sufficient to exercise all actions and check all invariants.
+
+SPECIFICATION Spec
+
+CONSTANTS
+    Components = {c1, c2, c3}
+    MaxEnergy  = 3
+
+INVARIANTS
+    TypeOK
+    ZeroBleed
+    PhaseCancellation
+    NoiseFloor
+
+PROPERTIES
+    Liveness

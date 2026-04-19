@@ -1,36 +1,181 @@
 {
-  "name": "MFCS",
-  "version": "1.0.0",
-  "description": "Mechanized Formal Control System (MFCS) - canonical artifact set",
-  "schema_version": "1.0",
-  "artifacts": [
+  "$schema": "mystic-map-manifest-v1.0",
+  "project": "Mystic Map",
+  "version": "1.0",
+  "author": "Mohammad",
+  "license": "CC BY-NC (Creative Commons Attribution-NonCommercial)",
+  "generated": "2026-04-17T03:37:00",
+  "file_count": 34,
+  "files": [
     {
-      "id": "specs-mfcs-tla",
-      "path": "specs/MFCS.tla",
-      "type": "tla-spec",
-      "role": "core-specification"
+      "path": "README.md",
+      "sha256": "ddd2444357c8958f80dda3b0ebff55dcfeb4bd58c974c8477d8d60323dcb5051",
+      "size": 3519
     },
     {
-      "id": "models-default",
-      "path": "models/default/MC.cfg",
-      "type": "tlc-model",
-      "role": "default-model"
+      "path": "accessibility/accessibility_notes.txt",
+      "sha256": "01c421ff788d28a2374120db95b8a0725cb57275a59e64d423441257384e8e89",
+      "size": 1661
     },
     {
-      "id": "ci-tlc-config",
-      "path": "ci/tlc-config.json",
-      "type": "ci-config",
-      "role": "tlc-verification"
+      "path": "central_emblem.svg",
+      "sha256": "24179d28288a7e20b0f163ab9e3fd4bda48b56ee5b20a76d4776b2b63d8b3423",
+      "size": 3315
     },
     {
-      "id": "ci-tlaps-config",
-      "path": "ci/tlaps-config.json",
-      "type": "ci-config",
-      "role": "tlaps-verification"
+      "path": "color/palette.ase",
+      "sha256": "a0c7e59bf986b7615c3111c3be029d57fc6b7538eb91be86591fa4be3e180e82",
+      "size": 708
+    },
+    {
+      "path": "color/palette.gpl",
+      "sha256": "6701e827a635206737b01a480c58546f78b888531bcf94a0e3ce0b84e69a7124",
+      "size": 382
+    },
+    {
+      "path": "color/palette_readme.txt",
+      "sha256": "9d179842da20fef13ae3599277271e0fc513b200268e872ecea411f9e0b0ba05",
+      "size": 1725
+    },
+    {
+      "path": "creatures/butterfly.svg",
+      "sha256": "b798f71df291f54411d67ff6c0dcb0278ecf4f59d6ffb83673ca2cd413df0a4f",
+      "size": 9005
+    },
+    {
+      "path": "creatures/dragon.svg",
+      "sha256": "6226e18f3f1ea900e019b29c35ba14b9a2622faf28ccfcc2d280ba6a31006ee3",
+      "size": 9377
+    },
+    {
+      "path": "creatures/heart.svg",
+      "sha256": "99e6f1ef1be0ca1fe58e4ea6275a1336809aef000f2fccbffde87b2ae8379e70",
+      "size": 9023
+    },
+    {
+      "path": "creatures/lion.svg",
+      "sha256": "58c6f2d32ddb0a575e60aa2c5d174ff5201bcb6d3e5ca963b1c7f546bab3d181",
+      "size": 8937
+    },
+    {
+      "path": "creatures/phoenix.svg",
+      "sha256": "25d2c7432b00ea49ce8748679d5d663c26f6e0d629fe2200ecec031f3c3ec7e9",
+      "size": 8968
+    },
+    {
+      "path": "creatures/raven.svg",
+      "sha256": "2995fbd2d66f8a21c2fad8be2d709907c6b228d88c5402d3c53d9407af0196a5",
+      "size": 9145
+    },
+    {
+      "path": "dev/mfcs_contract.ts",
+      "sha256": "b7f5c84da30ed640051f6009de470dae9d3c7c92468d3cab9b05cbf055094a8b",
+      "size": 12187
+    },
+    {
+      "path": "dev/node_map_example_query.js",
+      "sha256": "ee78f62ce3abe61bf6ee08229e50f003ae2c352ab6017ac8c9175487eae2dc4e",
+      "size": 2123
+    },
+    {
+      "path": "dev/test-transitions.spec.js",
+      "sha256": "83356d6ac9dc6eee1c5e1e854da45ca1b8df51621555e02dbf6e5077caaa2455",
+      "size": 3517
+    },
+    {
+      "path": "docs/changelog.md",
+      "sha256": "d8695aea5d3b8e756d9ee3df4db12d8c68cce738d08739229c874783008fa77b",
+      "size": 1160
+    },
+    {
+      "path": "docs/governance.txt",
+      "sha256": "44fa05212449e55e4e7625efee6eff0fc2ea814c437a0843d38b7f81e1a57d28",
+      "size": 1341
+    },
+    {
+      "path": "docs/legend_onepage.pdf",
+      "sha256": "d622b3d77fade56ee94d8049a42e2b698618ad2de1da81576cb323b6609a082b",
+      "size": 4352
+    },
+    {
+      "path": "docs/readme_metadata.txt",
+      "sha256": "943f4d8c97cc7b17b484f3039447136174d4f020ea6fcca4304af801999627c1",
+      "size": 1730
+    },
+    {
+      "path": "exports/composition_6000px.jpg",
+      "sha256": "b26d9b8ae49aa5f4762466922417d217bad8e55434899b2bf93534730517512c",
+      "size": 1883316
+    },
+    {
+      "path": "exports/composition_6000px.tif",
+      "sha256": "73083fa6e680c9b352fc96690798530eb51ed4f78785b31c7143e72cebe94de7",
+      "size": 3951988
+    },
+    {
+      "path": "exports/composition_high_contrast.png",
+      "sha256": "452eab10370fc641839b227629f602c8aae77c50108a93563fefc3ba6bbbead3",
+      "size": 433389
+    },
+    {
+      "path": "exports/composition_no_glow.png",
+      "sha256": "941472430fd9d0b4462b9708b6bfca7bd1b7b44cb691fd7251fe591d98dc322b",
+      "size": 434759
+    },
+    {
+      "path": "geometry/grid.svg",
+      "sha256": "3cdf10e167129610a2a766e02ba12b2c2d2b4ba0df6365dc5c3c1847b7cd09e3",
+      "size": 14128
+    },
+    {
+      "path": "node_legend.csv",
+      "sha256": "c74e3545730efb28a60c301938e71be454ee5962be5f8bff941dc1908a04663d",
+      "size": 5120
+    },
+    {
+      "path": "node_map.json",
+      "sha256": "0443861b8493831d7721b8359316c9539666db2e51e0cba4dcb16b6a5b42959b",
+      "size": 57047
+    },
+    {
+      "path": "source/README-source.txt",
+      "sha256": "1205cc1a9a15dd80f0334cffa037284745b7fdf930fa3e4fe9a864b914fcef75",
+      "size": 849
+    },
+    {
+      "path": "source/master_composition_v1.0.svg",
+      "sha256": "42f3531a69da6e8ba37d03428d8c796891e66f453352d30c1d355376ed8b5f7d",
+      "size": 38449
+    },
+    {
+      "path": "vscode-extension/README.md",
+      "sha256": "576ce59dd3e6aac8afc51c6226ca3189810557a46979ec70a4d3adb891a599c3",
+      "size": 2207
+    },
+    {
+      "path": "vscode-extension/media/viewer.js",
+      "sha256": "de8ecaf18a617397f0535b594f895d258b3088a42e30a6e25a04a0c82b32e80e",
+      "size": 440
+    },
+    {
+      "path": "vscode-extension/package.json",
+      "sha256": "c395f6a1749e520dda035efe45b9eab455def2d2da4a4463c13807e735e8abc8",
+      "size": 831
+    },
+    {
+      "path": "vscode-extension/src/extension.ts",
+      "sha256": "c12cfb95515cc899b57fb736577d82e69db12dc2e23819253fb1fd30726ae8de",
+      "size": 13000
+    },
+    {
+      "path": "vscode-extension/tsconfig.json",
+      "sha256": "ea98f2886be5e6665e87e19ab3c43efcfdbd322bf25aff7d384fadb995be19af",
+      "size": 189
+    },
+    {
+      "path": "manifest.json",
+      "sha256": "b3341d756e6c3fb890ee4f8d171874d3ac31fd1300b36844a4b571f2e9408e58",
+      "size": 5473
     }
-  ],
-  "integrity": {
-    "checksum_manifest": "SHA256SUMS.txt",
-    "algorithm": "sha256"
-  }
+  ]
 }

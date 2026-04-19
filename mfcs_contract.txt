@@ -1,0 +1,197 @@
+// mfcs_contract.ts — Mystic Map v1.0 MFCS Contract
+// Generated: 2026-04-17
+// Author: Mohammad
+// License: CC BY-NC (Creative Commons Attribution-NonCommercial)
+
+/** All valid node states in the Mystic Map. */
+export type State =
+    "B01"
+  | "B02"
+  | "B03"
+  | "B04"
+  | "B05"
+  | "B06"
+  | "C01"
+  | "D01"
+  | "D02"
+  | "D03"
+  | "D04"
+  | "D05"
+  | "D06"
+  | "L01"
+  | "L02"
+  | "L03"
+  | "L04"
+  | "L05"
+  | "L06"
+  | "N01"
+  | "N02"
+  | "N03"
+  | "N04"
+  | "N05"
+  | "N06"
+  | "N07"
+  | "N08"
+  | "N09"
+  | "N10"
+  | "N11"
+  | "N12"
+  | "N13"
+  | "N14"
+  | "N15"
+  | "N16"
+  | "N17"
+  | "N18"
+  | "N19"
+  | "N20"
+  | "N21"
+  | "N22"
+  | "N23"
+  | "N24"
+  | "N25"
+  | "N26"
+  | "N27"
+  | "N28"
+  | "N29"
+  | "N30"
+  | "N31"
+  | "N32"
+  | "N33"
+  | "N34"
+  | "N35"
+  | "N36"
+  | "P01"
+  | "P02"
+  | "P03"
+  | "P04"
+  | "P05"
+  | "P06"
+  | "R01"
+  | "R02"
+  | "R03"
+  | "R04"
+  | "R05"
+  | "R06";
+
+export interface Transition {
+  id: number;
+  from: State;
+  to: State;
+  weight: number;
+  condition: string;
+  bidirectional: boolean;
+}
+
+export const transitions: Transition[] = [
+  { id: 0, from: "C01", to: "P01", weight: 1.0, condition: "intention_declared", bidirectional: true },
+  { id: 1, from: "C01", to: "D01", weight: 1.0, condition: "intention_declared", bidirectional: true },
+  { id: 2, from: "C01", to: "L01", weight: 1.0, condition: "intention_declared", bidirectional: true },
+  { id: 3, from: "C01", to: "R01", weight: 1.0, condition: "intention_declared", bidirectional: true },
+  { id: 4, from: "C01", to: "B01", weight: 1.0, condition: "intention_declared", bidirectional: true },
+  { id: 5, from: "P06", to: "P01", weight: 0.8, condition: "cluster_traversal", bidirectional: true },
+  { id: 6, from: "D06", to: "D01", weight: 0.8, condition: "cluster_traversal", bidirectional: true },
+  { id: 7, from: "L06", to: "L01", weight: 0.8, condition: "cluster_traversal", bidirectional: true },
+  { id: 8, from: "R06", to: "R01", weight: 0.8, condition: "cluster_traversal", bidirectional: true },
+  { id: 9, from: "B06", to: "B01", weight: 0.8, condition: "cluster_traversal", bidirectional: true },
+  { id: 10, from: "P06", to: "D01", weight: 0.6, condition: "bridge_crossing", bidirectional: true },
+  { id: 11, from: "D06", to: "L01", weight: 0.6, condition: "bridge_crossing", bidirectional: true },
+  { id: 12, from: "L06", to: "R01", weight: 0.6, condition: "bridge_crossing", bidirectional: true },
+  { id: 13, from: "R06", to: "B01", weight: 0.6, condition: "bridge_crossing", bidirectional: true },
+  { id: 14, from: "B06", to: "P01", weight: 0.6, condition: "bridge_crossing", bidirectional: true },
+  { id: 15, from: "P01", to: "P02", weight: 0.7, condition: "cluster_traversal", bidirectional: true },
+  { id: 16, from: "P02", to: "P03", weight: 0.7, condition: "cluster_traversal", bidirectional: true },
+  { id: 17, from: "P03", to: "P04", weight: 0.7, condition: "cluster_traversal", bidirectional: true },
+  { id: 18, from: "P04", to: "P05", weight: 0.7, condition: "cluster_traversal", bidirectional: true },
+  { id: 19, from: "P05", to: "P06", weight: 0.7, condition: "cluster_traversal", bidirectional: true },
+  { id: 20, from: "D01", to: "D02", weight: 0.7, condition: "cluster_traversal", bidirectional: true },
+  { id: 21, from: "D02", to: "D03", weight: 0.7, condition: "cluster_traversal", bidirectional: true },
+  { id: 22, from: "D03", to: "D04", weight: 0.7, condition: "cluster_traversal", bidirectional: true },
+  { id: 23, from: "D04", to: "D05", weight: 0.7, condition: "cluster_traversal", bidirectional: true },
+  { id: 24, from: "D05", to: "D06", weight: 0.7, condition: "cluster_traversal", bidirectional: true },
+  { id: 25, from: "L01", to: "L02", weight: 0.7, condition: "cluster_traversal", bidirectional: true },
+  { id: 26, from: "L02", to: "L03", weight: 0.7, condition: "cluster_traversal", bidirectional: true },
+  { id: 27, from: "L03", to: "L04", weight: 0.7, condition: "cluster_traversal", bidirectional: true },
+  { id: 28, from: "L04", to: "L05", weight: 0.7, condition: "cluster_traversal", bidirectional: true },
+  { id: 29, from: "L05", to: "L06", weight: 0.7, condition: "cluster_traversal", bidirectional: true },
+  { id: 30, from: "R01", to: "R02", weight: 0.7, condition: "cluster_traversal", bidirectional: true },
+  { id: 31, from: "R02", to: "R03", weight: 0.7, condition: "cluster_traversal", bidirectional: true },
+  { id: 32, from: "R03", to: "R04", weight: 0.7, condition: "cluster_traversal", bidirectional: true },
+  { id: 33, from: "R04", to: "R05", weight: 0.7, condition: "cluster_traversal", bidirectional: true },
+  { id: 34, from: "R05", to: "R06", weight: 0.7, condition: "cluster_traversal", bidirectional: true },
+  { id: 35, from: "B01", to: "B02", weight: 0.7, condition: "cluster_traversal", bidirectional: true },
+  { id: 36, from: "B02", to: "B03", weight: 0.7, condition: "cluster_traversal", bidirectional: true },
+  { id: 37, from: "B03", to: "B04", weight: 0.7, condition: "cluster_traversal", bidirectional: true },
+  { id: 38, from: "B04", to: "B05", weight: 0.7, condition: "cluster_traversal", bidirectional: true },
+  { id: 39, from: "B05", to: "B06", weight: 0.7, condition: "cluster_traversal", bidirectional: true },
+  { id: 40, from: "N01", to: "N02", weight: 0.5, condition: "ring_traversal", bidirectional: true },
+  { id: 41, from: "N02", to: "N03", weight: 0.5, condition: "ring_traversal", bidirectional: true },
+  { id: 42, from: "N03", to: "N04", weight: 0.5, condition: "ring_traversal", bidirectional: true },
+  { id: 43, from: "N04", to: "N05", weight: 0.5, condition: "ring_traversal", bidirectional: true },
+  { id: 44, from: "N05", to: "N06", weight: 0.5, condition: "ring_traversal", bidirectional: true },
+  { id: 45, from: "N06", to: "N07", weight: 0.5, condition: "ring_traversal", bidirectional: true },
+  { id: 46, from: "N07", to: "N08", weight: 0.5, condition: "ring_traversal", bidirectional: true },
+  { id: 47, from: "N08", to: "N09", weight: 0.5, condition: "ring_traversal", bidirectional: true },
+  { id: 48, from: "N09", to: "N10", weight: 0.5, condition: "ring_traversal", bidirectional: true },
+  { id: 49, from: "N10", to: "N11", weight: 0.5, condition: "ring_traversal", bidirectional: true },
+  { id: 50, from: "N11", to: "N12", weight: 0.5, condition: "ring_traversal", bidirectional: true },
+  { id: 51, from: "N12", to: "N13", weight: 0.5, condition: "ring_traversal", bidirectional: true },
+  { id: 52, from: "N13", to: "N14", weight: 0.5, condition: "ring_traversal", bidirectional: true },
+  { id: 53, from: "N14", to: "N15", weight: 0.5, condition: "ring_traversal", bidirectional: true },
+  { id: 54, from: "N15", to: "N16", weight: 0.5, condition: "ring_traversal", bidirectional: true },
+  { id: 55, from: "N16", to: "N17", weight: 0.5, condition: "ring_traversal", bidirectional: true },
+  { id: 56, from: "N17", to: "N18", weight: 0.5, condition: "ring_traversal", bidirectional: true },
+  { id: 57, from: "N18", to: "N19", weight: 0.5, condition: "ring_traversal", bidirectional: true },
+  { id: 58, from: "N19", to: "N20", weight: 0.5, condition: "ring_traversal", bidirectional: true },
+  { id: 59, from: "N20", to: "N21", weight: 0.5, condition: "ring_traversal", bidirectional: true },
+  { id: 60, from: "N21", to: "N22", weight: 0.5, condition: "ring_traversal", bidirectional: true },
+  { id: 61, from: "N22", to: "N23", weight: 0.5, condition: "ring_traversal", bidirectional: true },
+  { id: 62, from: "N23", to: "N24", weight: 0.5, condition: "ring_traversal", bidirectional: true },
+  { id: 63, from: "N24", to: "N25", weight: 0.5, condition: "ring_traversal", bidirectional: true },
+  { id: 64, from: "N25", to: "N26", weight: 0.5, condition: "ring_traversal", bidirectional: true },
+  { id: 65, from: "N26", to: "N27", weight: 0.5, condition: "ring_traversal", bidirectional: true },
+  { id: 66, from: "N27", to: "N28", weight: 0.5, condition: "ring_traversal", bidirectional: true },
+  { id: 67, from: "N28", to: "N29", weight: 0.5, condition: "ring_traversal", bidirectional: true },
+  { id: 68, from: "N29", to: "N30", weight: 0.5, condition: "ring_traversal", bidirectional: true },
+  { id: 69, from: "N30", to: "N31", weight: 0.5, condition: "ring_traversal", bidirectional: true },
+  { id: 70, from: "N31", to: "N32", weight: 0.5, condition: "ring_traversal", bidirectional: true },
+  { id: 71, from: "N32", to: "N33", weight: 0.5, condition: "ring_traversal", bidirectional: true },
+  { id: 72, from: "N33", to: "N34", weight: 0.5, condition: "ring_traversal", bidirectional: true },
+  { id: 73, from: "N34", to: "N35", weight: 0.5, condition: "ring_traversal", bidirectional: true },
+  { id: 74, from: "N35", to: "N36", weight: 0.5, condition: "ring_traversal", bidirectional: true },
+  { id: 75, from: "N36", to: "N01", weight: 0.5, condition: "ring_traversal", bidirectional: true },
+  { id: 76, from: "N01", to: "P01", weight: 0.4, condition: "spoke_connection", bidirectional: true },
+  { id: 77, from: "N02", to: "D02", weight: 0.4, condition: "spoke_connection", bidirectional: true },
+  { id: 78, from: "N03", to: "L03", weight: 0.4, condition: "spoke_connection", bidirectional: true },
+  { id: 79, from: "N04", to: "R04", weight: 0.4, condition: "spoke_connection", bidirectional: true },
+  { id: 80, from: "N05", to: "B05", weight: 0.4, condition: "spoke_connection", bidirectional: true },
+  { id: 81, from: "N06", to: "P06", weight: 0.4, condition: "spoke_connection", bidirectional: true },
+  { id: 82, from: "N07", to: "D01", weight: 0.4, condition: "spoke_connection", bidirectional: true },
+  { id: 83, from: "N08", to: "L02", weight: 0.4, condition: "spoke_connection", bidirectional: true },
+  { id: 84, from: "N09", to: "R03", weight: 0.4, condition: "spoke_connection", bidirectional: true },
+  { id: 85, from: "N10", to: "B04", weight: 0.4, condition: "spoke_connection", bidirectional: true },
+  { id: 86, from: "N11", to: "P05", weight: 0.4, condition: "spoke_connection", bidirectional: true },
+  { id: 87, from: "N12", to: "D06", weight: 0.4, condition: "spoke_connection", bidirectional: true },
+  { id: 88, from: "N13", to: "L01", weight: 0.4, condition: "spoke_connection", bidirectional: true },
+  { id: 89, from: "N14", to: "R02", weight: 0.4, condition: "spoke_connection", bidirectional: true },
+  { id: 90, from: "N15", to: "B03", weight: 0.4, condition: "spoke_connection", bidirectional: true },
+  { id: 91, from: "N16", to: "P04", weight: 0.4, condition: "spoke_connection", bidirectional: true },
+  { id: 92, from: "N17", to: "D05", weight: 0.4, condition: "spoke_connection", bidirectional: true },
+  { id: 93, from: "N18", to: "L06", weight: 0.4, condition: "spoke_connection", bidirectional: true },
+  { id: 94, from: "N19", to: "R01", weight: 0.4, condition: "spoke_connection", bidirectional: true },
+  { id: 95, from: "N20", to: "B02", weight: 0.4, condition: "spoke_connection", bidirectional: true },
+  { id: 96, from: "N01", to: "C01", weight: 0.3, condition: "return_path", bidirectional: true },
+  { id: 97, from: "N04", to: "C01", weight: 0.3, condition: "return_path", bidirectional: true },
+  { id: 98, from: "N07", to: "C01", weight: 0.3, condition: "return_path", bidirectional: true },
+  { id: 99, from: "N10", to: "C01", weight: 0.3, condition: "return_path", bidirectional: true },
+  { id: 100, from: "N13", to: "C01", weight: 0.3, condition: "return_path", bidirectional: true },
+  { id: 101, from: "N16", to: "C01", weight: 0.3, condition: "return_path", bidirectional: true },
+  { id: 102, from: "N19", to: "C01", weight: 0.3, condition: "return_path", bidirectional: true },
+  { id: 103, from: "N22", to: "C01", weight: 0.3, condition: "return_path", bidirectional: true },
+  { id: 104, from: "N25", to: "C01", weight: 0.3, condition: "return_path", bidirectional: true },
+  { id: 105, from: "N28", to: "C01", weight: 0.3, condition: "return_path", bidirectional: true },
+  { id: 106, from: "N31", to: "C01", weight: 0.3, condition: "return_path", bidirectional: true },
+  { id: 107, from: "N34", to: "C01", weight: 0.3, condition: "return_path", bidirectional: true },
+];
+
+export const TOTAL_NODES = 67;
+export const TOTAL_TRANSITIONS = 108;

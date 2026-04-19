@@ -1,0 +1,316 @@
+// extension.ts — MFCS Visualizer for Mystic Map v1.0
+// Author: Mohammad | License: CC BY-NC
+// Renders node_map.json as an interactive state graph in a VS Code Webview.
+// Click nodes to select · Step → to traverse · HARDSTOP when stuck.
+
+import * as vscode from 'vscode';
+import * as fs from 'fs';
+import * as path from 'path';
+
+export function activate(context: vscode.ExtensionContext) {
+    const command = vscode.commands.registerCommand('mfcs.openVisualizer', () => {
+        const panel = vscode.window.createWebviewPanel(
+            'mfcsVisualizer',
+            'MFCS Visualizer — Mystic Map',
+            vscode.ViewColumn.One,
+            { enableScripts: true, retainContextWhenHidden: true }
+        );
+
+        // Resolve node_map.json — extension root, then parent (package root)
+        const candidates = [
+            path.join(context.extensionPath, 'node_map.json'),
+            path.join(context.extensionPath, '..', 'node_map.json')
+        ];
+        let nodeData = '';
+        for (const p of candidates) {
+            if (fs.existsSync(p)) {
+                nodeData = fs.readFileSync(p, 'utf-8');
+                break;
+            }
+        }
+        if (!nodeData) {
+            panel.webview.html = `<!DOCTYPE html><html><body style="background:#0B1020;color:#FF6B6B;font-family:monospace;padding:2em;">
+                <h2>\u26a0 node_map.json not found</h2>
+                <p>Place node_map.json in the extension root or parent directory.</p>
+                <p>Searched:</p><ul>${candidates.map(p => '<li>' + p + '</li>').join('')}</ul>
+            </body></html>`;
+            return;
+        }
+
+        panel.webview.html = getWebviewContent(nodeData);
+    });
+    context.subscriptions.push(command);
+}
+
+function getWebviewContent(nodeData: string): string {
+    return `<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0B1020;color:#E0E0E0;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden}
+#header{padding:12px 20px;display:flex;align-items:center;gap:16px;border-bottom:1px solid #1A2A40}
+#header h1{font-size:16px;color:#D4AF37;font-weight:600;letter-spacing:.5px}
+.badge{font-size:11px;background:#1A2A40;color:#00E5FF;padding:2px 8px;border-radius:10px}
+#controls{padding:8px 20px;display:flex;gap:10px;align-items:center;border-bottom:1px solid #1A2A40}
+button{background:#1A2A40;color:#E0E0E0;border:1px solid #2A3A50;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:12px;transition:all .2s}
+button:hover{background:#2A3A50;border-color:#D4AF37;color:#D4AF37}
+button.active{background:#253050;border-color:#4D96FF;color:#4D96FF}
+#main{display:flex;height:calc(100vh - 92px)}
+#canvas-wrap{flex:1;position:relative}
+canvas{display:block;width:100%;height:100%}
+#info{width:260px;background:#0D1428;border-left:1px solid #1A2A40;padding:16px;overflow-y:auto;font-size:12px;line-height:1.5}
+#info h3{color:#D4AF37;font-size:14px;margin-bottom:10px;border-bottom:1px solid #1A2A40;padding-bottom:6px}
+.field{margin-bottom:4px}.field .k{color:#4D96FF}.field .v{color:#E0E0E0}
+#hardstop{display:none;position:absolute;top:16px;left:50%;transform:translateX(-50%);background:#C62828;color:#fff;padding:8px 24px;border-radius:4px;font-weight:bold;font-size:14px;letter-spacing:1px;animation:pulse 1.5s infinite;z-index:10}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+#legend{display:flex;gap:14px;margin-left:auto}
+.lg{display:flex;align-items:center;gap:4px;font-size:10px;color:#888}
+.ld{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+#state-lbl{margin-left:12px;font-size:11px;color:#00E5FF;font-family:monospace}
+hr.sep{border:none;border-top:1px solid #1A2A40;margin:8px 0}
+</style>
+</head>
+<body>
+<div id="header">
+  <h1>MFCS Visualizer</h1>
+  <span class="badge">Mystic Map v1.0</span>
+  <div id="legend"></div>
+</div>
+<div id="controls">
+  <button id="btn-step">\u25b6 Step</button>
+  <button id="btn-reset">\u21ba C01</button>
+  <button id="btn-edges" class="active">Edges</button>
+  <button id="btn-labels" class="active">Labels</button>
+  <button id="btn-glow" class="active">Glow</button>
+  <span id="state-lbl">C01 \u2014 Nexus</span>
+</div>
+<div id="main">
+  <div id="canvas-wrap">
+    <canvas id="canvas"></canvas>
+    <div id="hardstop">\u26d4 HARDSTOP \u2014 no outgoing transitions</div>
+  </div>
+  <div id="info">
+    <h3>Node Inspector</h3>
+    <div id="info-body"><p style="color:#555">Click a node to inspect.</p></div>
+  </div>
+</div>
+<script>
+const data = \${nodeData};
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+const wrap = document.getElementById('canvas-wrap');
+const infoBody = document.getElementById('info-body');
+const stateLbl = document.getElementById('state-lbl');
+const hardstopEl = document.getElementById('hardstop');
+
+const GC = {
+  Ouroboros:'#D4AF37', Phoenix:'#C62828', Dragon:'#6BCB77',
+  Lion:'#FFC857', Raven:'#4D96FF', Butterfly:'#8A2BE2', _:'#C0C0C0'
+};
+const gc = g => GC[g]||GC._;
+
+/* adjacency */
+const adj = {};
+data.nodes.forEach(n => { adj[n.node_id] = []; });
+data.transitions.forEach(t => {
+  adj[t.from].push({to:t.to,id:t.id,w:t.weight,cond:t.condition});
+  if(t.bidirectional) adj[t.to].push({to:t.from,id:t.id,w:t.weight,cond:t.condition});
+});
+
+let cur = 'C01', showEdges=true, showLabels=true, showGlow=true;
+let hist = ['C01'];
+
+/* legend */
+const legEl = document.getElementById('legend');
+Object.entries(GC).forEach(([g,c]) => {
+  if(g==='_') return;
+  const d=document.createElement('div');d.className='lg';
+  d.innerHTML='<span class="ld" style="background:'+c+'"></span>'+g;
+  legEl.appendChild(d);
+});
+
+function resize(){
+  const r=devicePixelRatio||1;
+  canvas.width=wrap.clientWidth*r; canvas.height=wrap.clientHeight*r;
+  ctx.setTransform(r,0,0,r,0,0); draw();
+}
+window.addEventListener('resize',resize);
+
+const mx = x => 40+(x/100)*(wrap.clientWidth-80);
+const my = y => 40+(y/100)*(wrap.clientHeight-80);
+
+function draw(){
+  const W=wrap.clientWidth, H=wrap.clientHeight;
+  ctx.clearRect(0,0,W,H);
+
+  /* edges */
+  if(showEdges){
+    data.transitions.forEach(t => {
+      const a=data.nodes.find(n=>n.node_id===t.from);
+      const b=data.nodes.find(n=>n.node_id===t.to);
+      if(!a||!b) return;
+      const active = t.from===cur||t.to===cur;
+      ctx.beginPath();
+      ctx.moveTo(mx(a.x),my(a.y));
+      ctx.lineTo(mx(b.x),my(b.y));
+      ctx.strokeStyle = active ? 'rgba(212,175,55,0.45)' : 'rgba(77,150,255,0.10)';
+      ctx.lineWidth = active ? 1.8 : 0.4;
+      ctx.stroke();
+    });
+  }
+
+  /* nodes */
+  data.nodes.forEach(s => {
+    const x=mx(s.x), y=my(s.y);
+    const isCur = s.node_id===cur;
+    const r = s.type==='central' ? 18 : (s.node_id.startsWith('N') ? 7 : 12);
+    const col = gc(s.guardian);
+    const isDormant = (s.notes||'').toLowerCase().includes('dormant: true');
+
+    /* glow */
+    if(showGlow && isCur){
+      const g=ctx.createRadialGradient(x,y,r,x,y,r*4);
+      g.addColorStop(0,'rgba(212,175,55,0.55)');
+      g.addColorStop(1,'rgba(212,175,55,0)');
+      ctx.fillStyle=g;
+      ctx.beginPath(); ctx.arc(x,y,r*4,0,Math.PI*2); ctx.fill();
+    }
+
+    /* disc */
+    ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2);
+    ctx.fillStyle = isCur ? '#D4AF37' : (isDormant ? '#444' : col);
+    ctx.globalAlpha = isCur ? 1 : (isDormant ? 0.4 : 0.85);
+    ctx.fill(); ctx.globalAlpha=1;
+
+    /* ring */
+    ctx.beginPath(); ctx.arc(x,y,r+1.5,0,Math.PI*2);
+    ctx.strokeStyle = isCur ? '#FFF' : (isDormant ? 'rgba(255,100,100,0.3)' : 'rgba(255,255,255,0.15)');
+    ctx.lineWidth = isCur ? 2.5 : 0.7;
+    ctx.stroke();
+
+    /* dormant X */
+    if(isDormant && !isCur){
+      ctx.strokeStyle='rgba(255,80,80,0.5)'; ctx.lineWidth=1.5;
+      ctx.beginPath(); ctx.moveTo(x-r*.6,y-r*.6); ctx.lineTo(x+r*.6,y+r*.6); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(x+r*.6,y-r*.6); ctx.lineTo(x-r*.6,y+r*.6); ctx.stroke();
+    }
+
+    /* label */
+    if(showLabels){
+      ctx.font = isCur ? 'bold 11px monospace' : '9px monospace';
+      ctx.fillStyle = isCur ? '#FFF' : 'rgba(255,255,255,0.55)';
+      ctx.textAlign='center'; ctx.textBaseline='alphabetic';
+      ctx.fillText(s.node_id, x, y-r-5);
+      if(isCur || s.type==='central'){
+        ctx.font='8px sans-serif'; ctx.fillStyle='rgba(255,255,255,0.35)';
+        ctx.fillText(s.label, x, y+r+13);
+      }
+    }
+
+    /* number */
+    ctx.font = (r>9?'9':'7')+'px monospace';
+    ctx.fillStyle='#0B1020'; ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillText(String(s.number), x, y+1);
+    ctx.textBaseline='alphabetic';
+  });
+
+  hardstopEl.style.display = (adj[cur]||[]).length===0 ? 'block' : 'none';
+}
+
+function showInfo(n){
+  const nb = adj[n.node_id]||[];
+  const dormant = (n.notes||'').toLowerCase().includes('dormant: true');
+  const h = [
+    '<div class="field"><span class="k">ID:</span> <span class="v">'+n.node_id+'</span></div>',
+    '<div class="field"><span class="k">Label:</span> <span class="v">'+n.label+'</span></div>',
+    '<div class="field"><span class="k">Number:</span> <span class="v">'+n.number+'</span></div>',
+    '<div class="field"><span class="k">Weight:</span> <span class="v">'+n.weight+'</span></div>',
+    '<div class="field"><span class="k">Guardian:</span> <span class="v" style="color:'+gc(n.guardian)+'">'+n.guardian+'</span></div>',
+    '<div class="field"><span class="k">Triad:</span> <span class="v">'+n.triad+'</span></div>',
+    '<div class="field"><span class="k">Hexagram:</span> <span class="v">'+n.hexagram+'</span></div>',
+    '<div class="field"><span class="k">Type:</span> <span class="v">'+n.type+'</span></div>',
+    '<div class="field"><span class="k">Coords:</span> <span class="v">('+n.x+', '+n.y+')</span></div>',
+    '<div class="field"><span class="k">Dormant:</span> <span class="v" style="color:'+(dormant?'#FF6B6B':'#6BCB77')+'">'+dormant+'</span></div>',
+    '<hr class="sep">',
+    '<div class="field"><span class="k">Transitions ('+nb.length+'):</span></div>',
+    ...nb.slice(0,15).map(e =>
+      '<div class="field" style="padding-left:8px"><span class="v">\u2192 '+e.to+' <span style="color:#555">(w:'+e.w+' '+e.cond+')</span></span></div>'
+    ),
+    nb.length>15 ? '<div class="field" style="color:#555;padding-left:8px">... +'+(nb.length-15)+' more</div>' : '',
+    '<hr class="sep">',
+    '<div class="field"><span class="k">Liveness:</span></div>',
+    '<div class="field"><span class="v" style="font-size:10px">'+(n.liveness_target||'\u2014')+'</span></div>',
+    '<hr class="sep">',
+    '<div class="field"><span class="k">Entry:</span> <span class="v" style="font-size:10px">'+(n.entry_conditions||[]).join(', ')+'</span></div>',
+    '<div class="field"><span class="k">Exit:</span> <span class="v" style="font-size:10px">'+(n.exit_conditions||[]).join(', ')+'</span></div>',
+    '<hr class="sep">',
+    '<div class="field"><span class="k">Trace ('+hist.length+'):</span></div>',
+    '<div class="field"><span class="v" style="font-size:9px;word-break:break-all;color:#555">'+hist.slice(-20).join(' \u2192 ')+'</span></div>',
+  ].join('');
+  infoBody.innerHTML = h;
+}
+
+/* click to select */
+canvas.addEventListener('click', e => {
+  const rect=canvas.getBoundingClientRect();
+  const cx=e.clientX-rect.left, cy=e.clientY-rect.top;
+  let best=null, bestD=30;
+  data.nodes.forEach(n=>{
+    const dx=mx(n.x)-cx, dy=my(n.y)-cy;
+    const d=Math.sqrt(dx*dx+dy*dy);
+    if(d<bestD){bestD=d;best=n;}
+  });
+  if(best){
+    cur=best.node_id; hist.push(cur);
+    stateLbl.textContent=cur+' \u2014 '+best.label;
+    showInfo(best); draw();
+  }
+});
+
+/* buttons */
+document.getElementById('btn-step').onclick=()=>{
+  const nb=adj[cur]||[];
+  if(!nb.length) return;
+  const next=nb[Math.floor(Math.random()*nb.length)];
+  cur=next.to; hist.push(cur);
+  const nd=data.nodes.find(n=>n.node_id===cur);
+  stateLbl.textContent=cur+(nd?' \u2014 '+nd.label:'');
+  if(nd) showInfo(nd); draw();
+};
+document.getElementById('btn-reset').onclick=()=>{
+  cur='C01'; hist=['C01'];
+  stateLbl.textContent='C01 \u2014 Nexus';
+  const nd=data.nodes.find(n=>n.node_id==='C01');
+  if(nd) showInfo(nd); draw();
+};
+document.getElementById('btn-edges').onclick=function(){
+  showEdges=!showEdges; this.classList.toggle('active',showEdges); draw();
+};
+document.getElementById('btn-labels').onclick=function(){
+  showLabels=!showLabels; this.classList.toggle('active',showLabels); draw();
+};
+document.getElementById('btn-glow').onclick=function(){
+  showGlow=!showGlow; this.classList.toggle('active',showGlow); draw();
+};
+
+/* keyboard: arrow keys step through neighbors */
+document.addEventListener('keydown', e => {
+  if(e.key==='ArrowRight'||e.key==='ArrowDown'){
+    document.getElementById('btn-step').click();
+  } else if(e.key==='Escape'||e.key==='Home'){
+    document.getElementById('btn-reset').click();
+  }
+});
+
+setTimeout(()=>{
+  resize();
+  const nd=data.nodes.find(n=>n.node_id==='C01');
+  if(nd) showInfo(nd);
+},60);
+</script>
+</body>
+</html>`;
+}
+
+export function deactivate() {}

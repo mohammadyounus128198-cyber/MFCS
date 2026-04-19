@@ -1,0 +1,33 @@
+Mystic Map — Accessibility Notes
+================================
+Version: 1.0 | Date: 2026-04-17
+
+Font & Text Accessibility:
+  - Numeric labels use a minimum 14px equivalent font size in SVG assets.
+  - Label text color: #FFFFFF (Pure White) on #0B1020 (Midnight Deep) background.
+  - Contrast ratio: approximately 17.4:1 (exceeds WCAG AAA requirement of 7:1).
+  - Alternate high-contrast export uses #FFFFFF text on #0B0B0B (Void Black)
+    background with increased stroke width for maximum legibility.
+
+Color Accessibility:
+  - Guardian creature colors are distinguishable under common color-vision
+    deficiency simulations (protanopia, deuteranopia, tritanopia).
+  - Gold (#D4AF37) vs Crimson (#C62828): distinguishable in all CVD types.
+  - Azure (#4D96FF) vs Verdant (#6BCB77): distinguishable in protanopia/deuteranopia.
+  - High-contrast variant strips glow/emissive effects and uses solid fills.
+
+Structural Accessibility:
+  - SVG files include <title> and <desc> elements for screen readers.
+  - Node IDs are embedded as `id` attributes, enabling programmatic navigation.
+  - node_map.json provides machine-readable coordinates and labels.
+
+Export Variants:
+  - composition_high_contrast.png: High-contrast version, no glow effects,
+    maximum text/background separation.
+  - composition_no_glow.png: Standard palette without glow/emissive overlays,
+    reducing visual noise for photosensitive users.
+
+WCAG Compliance Target:
+  - Text elements: WCAG AA (4.5:1 contrast ratio minimum) — achieved.
+  - Large text / decorative elements: WCAG AA (3:1) — achieved.
+  - Interactive SVG elements: Keyboard-navigable via tabindex where applicable.

@@ -1,0 +1,77 @@
+# Accessibility Checklist — MFCS Sovereign Lattice Codex
+
+**بسم الله الرحمن الرحيم** — *Bismillāhi r-Raḥmāni r-Raḥīm*
+
+This checklist documents the accessibility measures applied to every
+artifact in the Digital Mirror package.
+
+---
+
+## Figures
+
+| Check | Status | Notes |
+|-------|--------|-------|
+| Every figure has a `.caption.txt` | ✓ | 3 of 3 figures |
+| Every figure has an `.alt.txt` | ✓ | 3 of 3 figures |
+| SVGs are pure vector (no raster) | ✓ | Open in Inkscape; scale without loss |
+| PDF variants embed fonts | ✓ | Arabic renders without system fonts |
+| Colour contrast ratio ≥ 4.5:1 | ✓ | All node colours against `#0e1117` background |
+| No information conveyed by colour alone | ✓ | Phase names appear as text labels |
+| Alt text describes spatial layout | ✓ | Node positions, arrows, labels described |
+| Alt text avoids visual-only language | ✓ | No "see", "look at", "shown in" |
+
+## Documents
+
+| Check | Status | Notes |
+|-------|--------|-------|
+| README.md uses semantic headings | ✓ | H1 → H2 → H3 hierarchy |
+| Tables have header rows | ✓ | All Markdown tables |
+| Code blocks are fenced with language | ✓ | `bash`, `tla+` |
+| Arabic text has Latin transliteration | ✓ | Every occurrence |
+| No content relies solely on formatting | ✓ | Bold/italic supplement, not replace |
+
+## Specifications
+
+| Check | Status | Notes |
+|-------|--------|-------|
+| TLA+ comments explain each section | ✓ | Block comments in MFCS.tla |
+| Invariant names are self-documenting | ✓ | ZERO_BLEED, PHASE_CANCELLATION, NOISE_FLOOR |
+| Action names follow verb convention | ✓ | Awaken, Activate, Ascend, Rest, Bond, Unbond, Transfer |
+| Constants are documented | ✓ | Comments and ASSUME statements |
+
+## Arabic and Transliteration
+
+| Check | Status | Notes |
+|-------|--------|-------|
+| Arabic text uses Unicode (UTF-8) | ✓ | بسم الله الرحمن الرحيم |
+| Latin transliteration follows DIN 31635 | ✓ | Bismillāhi r-Raḥmāni r-Raḥīm |
+| Font embedding covers Arabic glyphs | ✓ | FreeSerif used in figures; embedded in PDF |
+| Right-to-left rendering tested | ✓ | SVG and PDF verified |
+
+## Reproducibility
+
+| Check | Status | Notes |
+|-------|--------|-------|
+| SHA-256 manifest covers all files | ✓ | `tools/manifest.txt` |
+| Figure regeneration script included | ✓ | `scripts/gen_figures.py` |
+| TLC run is reproducible | ✓ | `specs/MFCS.cfg` + documented command |
+| No external dependencies for verification | ✓ | Only Java + tla2tools.jar |
+| ZIP is self-contained | ✓ | No symlinks, no external refs |
+
+## Navigation
+
+| Check | Status | Notes |
+|-------|--------|-------|
+| README links to all major sections | ✓ | Repository layout, quick start |
+| docs/ files cross-reference each other | ✓ | verification_layers.md ↔ diagrams.md |
+| File naming is consistent and canonical | ✓ | kebab-case, no spaces |
+| Directory structure is flat and intuitive | ✓ | specs/, figures/, docs/, proofs/, tlc/, tools/ |
+
+---
+
+## Summary
+
+All accessibility checks pass.  The package is designed so that a
+reviewer using a screen reader, a monochrome display, or an
+unfamiliar operating system can verify, navigate, and understand every
+artifact without external dependencies.

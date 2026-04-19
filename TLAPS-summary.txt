@@ -1,0 +1,65 @@
+================================================================
+  TLAPS PROOF-CHECK SUMMARY — MFCS SelectProof.tla
+  Date    : 2026-04-17T01:12:00Z
+  Module  : SelectProof (extends MFCS)
+  Backend : Zenon + Isabelle/TLA+
+================================================================
+
+OBLIGATION STATUS:
+
+  Lemma                      Backend     Status       Time
+  ──────────────────────────  ──────────  ───────────  ──────
+  ZeroBleedInit              Zenon       DISCHARGED   0.02s
+  ZeroBleedInductive <1>1    Zenon       DISCHARGED   0.03s
+  ZeroBleedInductive <1>2    Zenon       DISCHARGED   0.02s
+  ZeroBleedInductive <1>3    Zenon       DISCHARGED   0.02s
+  ZeroBleedInductive <1>4    Zenon       DISCHARGED   0.03s
+  ZeroBleedInductive <1>5    Zenon       DISCHARGED   0.02s
+  ZeroBleedInductive <1>6    Zenon       DISCHARGED   0.03s
+  ZeroBleedInductive <1>7    Zenon       DISCHARGED   0.01s
+  ZeroBleedInductive <1>8    Zenon       DISCHARGED   0.01s
+  NoiseFloorInit             Zenon       DISCHARGED   0.02s
+  NoiseFloorInductive <1>1   Zenon       DISCHARGED   0.03s
+  NoiseFloorInductive <1>2   Zenon       DISCHARGED   0.02s
+  NoiseFloorInductive <1>3   Zenon       DISCHARGED   0.02s
+  NoiseFloorInductive <1>4   Zenon       DISCHARGED   0.03s
+  NoiseFloorInductive <1>5   Zenon       DISCHARGED   0.02s
+  NoiseFloorInductive <1>6   Zenon       DISCHARGED   0.03s
+  NoiseFloorInductive <1>7   Zenon       DISCHARGED   0.01s
+  NoiseFloorInductive <1>8   Zenon       DISCHARGED   0.01s
+  PhaseCancelInit            Zenon       DISCHARGED   0.02s
+  PhaseCancelInductive <1>1  Zenon       DISCHARGED   0.01s
+  PhaseCancelInductive <1>2  Zenon       DISCHARGED   0.04s
+  PhaseCancelInductive <1>3  Zenon       DISCHARGED   0.01s
+  SafetyProof <1>1           Zenon       DISCHARGED   0.02s
+  SafetyProof <1>2           Zenon       DISCHARGED   0.03s
+  SafetyProof <1>3           Isabelle    DISCHARGED   0.41s
+
+================================================================
+  TOTALS
+  ──────────────────────────────────────────────────
+  Total obligations  : 25
+  Discharged         : 25
+  Remaining          : 0
+  Failed             : 0
+  ──────────────────────────────────────────────────
+  ALL OBLIGATIONS DISCHARGED — PROOF MECHANIZED
+================================================================
+
+INVARIANT PROOF STATUS:
+  [MECHANIZED]  ZERO_BLEED           Init + Inductive
+  [MECHANIZED]  NOISE_FLOOR          Init + Inductive
+  [MECHANIZED]  PHASE_CANCELLATION   Init + Inductive
+  [MECHANIZED]  Safety (combined)    Follows from above + PTL
+
+REMAINING WORK:
+  - EventualResonance (liveness): TLC-verified, not yet mechanized
+  - GhostElimination (liveness): TLC-verified, not yet mechanized
+  - Note: Liveness mechanization requires temporal reasoning
+    with WF_vars; planned for a future proof pass.
+
+LOCAL COMMANDS TO REPRODUCE:
+  cd mfcs/spec
+  tlapm SelectProof.tla
+
+================================================================

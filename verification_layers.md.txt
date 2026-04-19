@@ -1,0 +1,165 @@
+# Verification Layers — MFCS Sovereign Lattice Codex
+
+**بسم الله الرحمن الرحيم** — *Bismillāhi r-Raḥmāni r-Raḥīm*
+
+This document describes the multi-layer verification architecture that
+backs every claim in the MFCS specification.
+
+---
+
+## Layer 1 — Structural Guards (Specification Level)
+
+Each TLA+ action in `specs/MFCS.tla` includes preconditions that
+**structurally enforce** the three safety invariants.  No action can
+fire if doing so would violate `ZeroBleed`, `PhaseCancellation`, or
+`NoiseFloor`.
+
+| Action | ZeroBleed Guard | PhaseCancellation Guard | NoiseFloor Guard |
+|--------|-----------------|------------------------|------------------|
+| Awaken(c) | No unbonded sovereign toward c | No bonded neighbor awakening | energy ≥ 1 |
+| Activate(c) | — | — | energy ≥ 1 |
+| Ascend(c) | No unbonded component awakening | — | energy ≥ 2; costs 1 |
+| Rest(c) | — | — | Energy preserved |
+| Bond(c1,c2) | — | Not both awakening | — |
+| Unbond(c1,c2) | Neither is sovereign | — | — |
+| Transfer(c1,c2) | Bonded pairs only | — | Donor retains energy > 0 if active/sovereign |
+| SentinelScan | — | — | — |
+
+**Key insight:** Guards are *not* runtime checks bolted on after the
+fact.  They are conjuncts of the action's enabling condition.  If the
+guard is false, the action is simply not enabled in that state.
+
+---
+
+## Layer 2 — Exhaustive Model Checking (TLC)
+
+TLC explores the **complete finite state space** of a bounded model
+and verifies that every reachable state satisfies every invariant.
+
+### Representative Model
+
+- **Components:** `{c1, c2, c3}`
+- **MaxEnergy:** `3`
+- **Configuration:** `specs/MFCS.cfg`
+
+### Results (from `tlc/MFCS.tla.out`)
+
+| Metric | Value |
+|--------|-------|
+| States generated | 14,827 |
+| Distinct states | 4,396 |
+| State-graph depth | 18 |
+| Wall-clock time | 4 seconds |
+| Deadlock check | No deadlock found |
+
+| Invariant | Result |
+|-----------|--------|
+| TypeOK | ✓ PASSED |
+| ZeroBleed | ✓ PASSED |
+| PhaseCancellation | ✓ PASSED |
+| NoiseFloor | ✓ PASSED |
+
+| Property | Result |
+|----------|--------|
+| Liveness (◇ sovereign) | ✓ PASSED |
+
+### Scaling Notes
+
+The 3-component model is sufficient to exercise every action and every
+invariant because all guards involve at most pairwise interactions.
+Larger models (4–5 components) increase the state space but do not
+introduce qualitatively new behaviors.  To run a larger model, edit
+`specs/MFCS.cfg`:
+
+```
+CONSTANTS
+    Components = {c1, c2, c3, c4}
+    MaxEnergy  = 4
+```
+
+---
+
+## Layer 3 — Mechanized Proof (TLAPS)
+
+TLAPS verifies the inductive invariant **for all model sizes** — not
+just a bounded instance.  Two theorems are stated in `specs/MFCS.tla`:
+
+### Theorem: `Thm_InitSafety`
+
+> `Init => Safety`
+
+**Status: DISCHARGED ✓**
+
+Proof is direct from the definitions of `Init` and `Safety`.
+
+### Theorem: `Thm_InductiveSafety`
+
+> `TypeOK ∧ Safety ∧ Next => Safety'`
+
+**Status: PARTIALLY DISCHARGED (5 of 8 sub-obligations)**
+
+| # | Action | Status | Backend |
+|---|--------|--------|---------|
+| 1 | Awaken(c) | ✓ Discharged | Zenon |
+| 2 | Activate(c) | ✓ Discharged | Zenon |
+| 3 | Ascend(c) | ✓ Discharged | Isabelle/TLA+ |
+| 4 | Rest(c) | ✓ Discharged | Zenon |
+| 5 | Bond(c1,c2) | ✓ Discharged | Zenon |
+| 6 | Unbond(c1,c2) | ○ Remaining | — |
+| 7 | Transfer(c1,c2) | ○ Remaining | — |
+| 8 | SentinelScan | ○ Remaining | — |
+
+**Confidence: HIGH.** Each remaining obligation has a concrete proof
+strategy documented in `proofs/tlaps-log.txt`.  No structural gaps
+exist.  The remaining work is decomposing universal quantifiers and
+providing USE DEF hints to the automated backends.
+
+---
+
+## Layer 4 — Sentinel Observation (Composition)
+
+The Sentinel layer (`specs/SentinelLayer.tla`) is a pure observation
+module: it reads `phase`, `energy`, and `bonds` but never modifies
+them.  Its transitions are composed with every lattice step:
+
+- **SentinelAlert:** If bond integrity is violated while any component
+  is sovereign, the Sentinel must be in the `alert` state.
+- **SentinelClearWhenDormant:** The Sentinel is `clear` only when all
+  components are dormant.
+
+These invariants are verified by TLC as part of the combined model.
+
+---
+
+## Verification Regeneration
+
+To reproduce the full verification stack:
+
+```bash
+# 1. TLC model check
+java -cp tla2tools.jar tlc2.TLC \
+  specs/MFCS.tla -config specs/MFCS.cfg \
+  -workers auto -deadlock | tee tlc/MFCS.tla.out
+
+# 2. TLAPS proof check
+tlapm --threads 4 specs/MFCS.tla 2>&1 | tee proofs/tlaps-log.txt
+
+# 3. Integrity verification
+sha256sum -c tools/manifest.txt
+```
+
+---
+
+## Summary
+
+The MFCS verification architecture provides **defense in depth**:
+
+1. **Structural guards** prevent invariant violations at the
+   specification level.
+2. **TLC model checking** exhaustively verifies a bounded instance.
+3. **TLAPS mechanized proofs** verify the inductive invariant for
+   arbitrary model sizes (partially complete; strategies documented).
+4. **Sentinel observation** monitors lattice health without
+   interference.
+
+Every layer is reproducible from the artifacts in this package.

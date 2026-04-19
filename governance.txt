@@ -1,0 +1,27 @@
+Mystic Map — Governance & Versioning Rules
+==========================================
+Author:   Mohammad
+Version:  1.0
+License:  CC BY-NC (Creative Commons Attribution-NonCommercial)
+
+Versioning:
+  - Follows Semantic Versioning (MAJOR.MINOR.PATCH).
+  - MAJOR: Breaking changes to node_map.json schema or node ID conventions.
+  - MINOR: New nodes, transitions, or metadata fields (backward-compatible).
+  - PATCH: Bug fixes, documentation updates, visual refinements.
+  - All releases must include an updated manifest.json with SHA-256 checksums.
+
+License Terms:
+  - Creative Commons Attribution-NonCommercial (CC BY-NC).
+  - Attribution: Credit "Mohammad" and "Mystic Map" in derivative works.
+  - NonCommercial: Do not use for commercial purposes without explicit permission.
+  - Derivatives: Allowed under the same license terms.
+  - Full license text: https://creativecommons.org/licenses/by-nc/4.0/
+
+Contribution Guidelines:
+  - Node ID conventions (C, P, D, L, R, B, N prefixes) are canonical and must not change.
+  - All new nodes must include full metadata fields as defined in the schema.
+  - Transitions must reference valid node IDs and maintain graph connectivity.
+  - Coordinate system remains normalized 0–100.
+  - All changes must be recorded in changelog.md.
+  - Package must pass test-transitions.spec.js before release.

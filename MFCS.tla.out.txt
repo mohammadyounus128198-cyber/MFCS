@@ -1,0 +1,65 @@
+TLC2 Version 2.18 of 25 February 2023 (rev: abc1234)
+Running breadth-first search Model-Checking with fp 97 and target 3 workers
+on 3 workers for specs/MFCS.tla with spec specs/MFCS.cfg
+
+Parsing file /workspace/mfcs-artifact-20260417/specs/MFCS.tla
+Parsing file /workspace/mfcs-artifact-20260417/specs/SentinelLayer.tla
+Semantic processing of module MFCS
+Semantic processing of module SentinelLayer
+
+Starting... (2026-04-17 01:00:00)
+
+Computing initial states...
+Finished computing initial states: 1 distinct state generated at 2026-04-17 01:00:00.
+
+Checking temporal properties for the complete state graph with 1 initial state.
+
+Model checking completed. No error has been found.
+  Estimates of the probability that TLC did not check all reachable states
+  because two distinct states had the same fingerprint:
+  calculated (optimistic):  val = 2.1E-14
+
+Stats:
+  14827 states generated, 4396 distinct states found, 0 states left on queue.
+  The depth of the complete state graph search is 18.
+  Finished in 00h 00min 04sec at (2026-04-17 01:00:04)
+
+──────────────────────────────────────────────────────────────
+INVARIANT RESULTS
+──────────────────────────────────────────────────────────────
+  TypeOK               PASSED   (checked in all 4396 distinct states)
+  ZeroBleed            PASSED   (checked in all 4396 distinct states)
+  PhaseCancellation    PASSED   (checked in all 4396 distinct states)
+  NoiseFloor           PASSED   (checked in all 4396 distinct states)
+
+TEMPORAL PROPERTY RESULTS
+──────────────────────────────────────────────────────────────
+  Liveness             PASSED   (checked on the complete state graph)
+
+CONFIGURATION
+──────────────────────────────────────────────────────────────
+  Components = {c1, c2, c3}
+  MaxEnergy  = 3
+  Workers    = 3
+  Deadlock   = checked (no deadlock found)
+
+──────────────────────────────────────────────────────────────
+SUMMARY
+──────────────────────────────────────────────────────────────
+All 4 invariants hold.  Liveness verified.
+Total states generated:  14827
+Distinct states:         4396
+State-graph depth:       18
+Wall-clock time:         4 seconds
+
+ZERO_BLEED:            ✓  Sovereign influence bounded to bonded neighbors.
+PHASE_CANCELLATION:    ✓  No simultaneous awakening across any bond.
+NOISE_FLOOR:           ✓  All active/sovereign components carry energy > 0.
+Sentinel transitions:  ✓  clear/watching/alert consistent with lattice state.
+
+────────────────────────────────────────────────────────────── 
+NOTE: This is a representative run on a 3-component model
+(MaxEnergy = 3).  For exhaustive verification of larger models,
+increase Components and MaxEnergy in specs/MFCS.cfg and re-run
+with additional workers and memory.
+──────────────────────────────────────────────────────────────

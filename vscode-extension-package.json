@@ -1,0 +1,32 @@
+{
+  "name": "mfcs-visualizer",
+  "displayName": "MFCS Visualizer — Mystic Map",
+  "description": "Live state-graph visualizer for the Mystic Map MFCS system. Reads node_map.json, renders clusters and transitions, and lets you step through states.",
+  "version": "0.0.1",
+  "publisher": "mohammad-mystic-map",
+  "license": "CC-BY-NC-4.0",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": ["Visualization"],
+  "activationEvents": [
+    "onCommand:mfcs.openVisualizer"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "mfcs.openVisualizer",
+        "title": "MFCS: Open Visualizer"
+      }
+    ]
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "@types/vscode": "^1.85.0"
+  }
+}

@@ -1,0 +1,9 @@
+Metric,Value,Unit,Threshold,Status,Description
+Resonance,0.381966,Hz,0.381966,LOCKED,Fundamental frequency (1/phi^2)
+Drift,0.0042,ppm,0.01,NOMINAL,Clock drift vs phi-locked ref
+Ghost State,False,-,False,CLEAR,ZERO_BLEED invariant holds
+Noise Floor,-96.3,dBFS,-90.0,BELOW_THRESHOLD,System noise floor
+Active Paths,4,count,4,ALL_ACTIVE,Breath channel paths
+Phase Cancel.,False,-,False,CLEAR,No destructive interference
+SABR Engine,BREATHING,state,BREATHING,NOMINAL,Cycle: 2.6180s
+Score,1.0,/1.0,1.0,COHERENT,All invariants hold

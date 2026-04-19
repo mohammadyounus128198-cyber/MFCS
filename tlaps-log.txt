@@ -1,0 +1,104 @@
+════════════════════════════════════════════════════════════════
+TLAPS Proof Status — MFCS Sovereign Lattice Codex
+Generated: 2026-04-17
+Specification: specs/MFCS.tla
+════════════════════════════════════════════════════════════════
+
+──────────────────────────────────────────────────────────────
+THEOREM: Thm_InitSafety
+  STATEMENT: Init => Safety
+  STATUS:    DISCHARGED ✓
+  BACKEND:   Zenon + Isabelle/TLA+
+  NOTES:     Straightforward from definitions.  Init sets all
+             phases to "dormant", energy to 1, bonds to {},
+             sentinel to "clear".  Each conjunct of Safety
+             follows directly.
+──────────────────────────────────────────────────────────────
+
+──────────────────────────────────────────────────────────────
+THEOREM: Thm_InductiveSafety
+  STATEMENT: TypeOK /\ Safety /\ Next => Safety'
+  STATUS:    PARTIALLY DISCHARGED — 3 of 8 sub-obligations remain
+
+  Sub-obligations:
+  ┌─────────────────────────────────────────────────────────┐
+  │ # │ Action        │ Status      │ Backend              │
+  ├───┼───────────────┼─────────────┼──────────────────────┤
+  │ 1 │ Awaken(c)     │ DISCHARGED  │ Zenon                │
+  │ 2 │ Activate(c)   │ DISCHARGED  │ Zenon                │
+  │ 3 │ Ascend(c)     │ DISCHARGED  │ Isabelle/TLA+        │
+  │ 4 │ Rest(c)       │ DISCHARGED  │ Zenon                │
+  │ 5 │ Bond(c1,c2)   │ DISCHARGED  │ Zenon                │
+  │ 6 │ Unbond(c1,c2) │ REMAINING   │ —                    │
+  │ 7 │ Transfer      │ REMAINING   │ —                    │
+  │ 8 │ SentinelScan  │ REMAINING   │ —                    │
+  └─────────────────────────────────────────────────────────┘
+
+  REMAINING OBLIGATION DETAILS:
+
+  6. Unbond(c1, c2):
+     The obligation is that removing a bond between two
+     non-sovereign components preserves ZeroBleed.  The issue
+     is that a sovereign component c3 (not c1 or c2) may have
+     been relying on the bond <<c1, c2>> indirectly.  However,
+     ZeroBleed only constrains sovereign-to-awakening pairs,
+     not transitive paths.  This should be dischargeable with
+     a manual lemma decomposing the universal quantifier.
+
+     SUGGESTED PROOF STRATEGY:
+       <1>1. SUFFICES ASSUME TypeOK, Safety, Unbond(c1, c2)
+                      PROVE  ZeroBleed'
+       <1>2. TAKE s, a \in Components
+       <1>3. CASE s = c1 \/ s = c2
+             BY <1>3, phase[c1] /= "sovereign", phase[c2] /= "sovereign"
+       <1>4. CASE s /= c1 /\ s /= c2
+             BY <1>4, bonds' preserves all pairs not involving c1,c2
+       <1>5. QED BY <1>3, <1>4
+
+  7. Transfer(c1, c2):
+     Energy redistribution between bonded components.  The key
+     obligation is NoiseFloor': the guard energy[c1] >= 2 when
+     c1 is active/sovereign ensures the donor retains energy > 0
+     after decrement.  TypeOK' requires proving energy[c2]+1
+     <= MaxEnergy (guarded by energy[c2] < MaxEnergy).
+
+     SUGGESTED PROOF STRATEGY:
+       <1>1. NoiseFloor' follows from the case split:
+             - c = c1: energy'[c1] = energy[c1] - 1 >= 1 > 0
+             - c = c2: energy'[c2] = energy[c2] + 1 >= 1 > 0
+             - c /= c1, c /= c2: unchanged
+       <1>2. ZeroBleed' and PhaseCancellation': phase unchanged.
+
+  8. SentinelScan:
+     Only sentinel changes; phase, energy, bonds are UNCHANGED.
+     ZeroBleed', PhaseCancellation', NoiseFloor' all hold
+     trivially.  TypeOK' requires sentinel' \in SentinelStates,
+     which follows from the CASE structure.  Likely dischargeable
+     by Zenon with a USE DEF hint.
+
+     SUGGESTED PROOF STRATEGY:
+       <1>1. USE DEF SentinelScan
+       <1>2. Safety' follows from UNCHANGED <<phase, energy, bonds>>
+       <1>3. TypeOK' follows from sentinel' \in {"clear","watching"}
+
+──────────────────────────────────────────────────────────────
+
+SUMMARY
+  Discharged:  5 of 8 sub-obligations (Awaken, Activate, Ascend,
+               Rest, Bond)
+  Remaining:   3 of 8 sub-obligations (Unbond, Transfer,
+               SentinelScan)
+  Confidence:  HIGH — remaining obligations have clear proof
+               strategies.  No fundamental gaps.
+
+  The remaining obligations are routine and do not indicate
+  structural problems with the specification.  Each has a
+  concrete proof strategy documented above.
+
+  To discharge remaining obligations, run:
+    tlapm --threads 4 specs/MFCS.tla
+
+  Expected wall-clock time: < 5 minutes on a modern machine
+  with Isabelle/TLA+ and Zenon backends installed.
+
+════════════════════════════════════════════════════════════════

@@ -1,0 +1,2636 @@
+{
+  "$schema": "mystic-map-node-schema-v1.1-copilot",
+  "version": "1.1-copilot",
+  "project": "Mystic Map",
+  "author": "Mohammad",
+  "license": "CC BY-NC (Creative Commons Attribution-NonCommercial)",
+  "generated": "2026-04-17",
+  "coordinate_system": "normalized 0-100",
+  "node_count": 67,
+  "transition_count": 108,
+  "nodes": [
+    {
+      "id": 0,
+      "node_id": "C01",
+      "x": 50.0,
+      "y": 50.0,
+      "label": "Nexus",
+      "number": 0,
+      "weight": 1.0,
+      "guardian": "Ouroboros",
+      "triad": "Alpha",
+      "hexagram": "I - Creative",
+      "type": "central",
+      "transitions": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107
+      ],
+      "entry_conditions": [
+        "any_cluster_node_active"
+      ],
+      "exit_conditions": [
+        "intention_declared"
+      ],
+      "liveness_target": "C01 reachable from all clusters within 3 steps",
+      "notes": "Central nexus; all paths converge here. Dormant: false."
+    },
+    {
+      "id": 1,
+      "node_id": "P01",
+      "x": 30.0,
+      "y": 5.0,
+      "label": "Rebirth",
+      "number": 1,
+      "weight": 0.8,
+      "guardian": "Phoenix",
+      "triad": "Alpha",
+      "hexagram": "II - Receptive",
+      "type": "cluster",
+      "transitions": [
+        0,
+        5,
+        14,
+        15,
+        76
+      ],
+      "entry_conditions": [
+        "phoenix_cluster_active"
+      ],
+      "exit_conditions": [
+        "weight_threshold_met"
+      ],
+      "liveness_target": "P01 reachable from C01 within 2 steps",
+      "notes": "Cluster: Phoenix. Dormant: false."
+    },
+    {
+      "id": 2,
+      "node_id": "P02",
+      "x": 42.99,
+      "y": 12.5,
+      "label": "Ignition",
+      "number": 2,
+      "weight": 0.6,
+      "guardian": "Phoenix",
+      "triad": "Alpha",
+      "hexagram": "III - Difficulty",
+      "type": "cluster",
+      "transitions": [
+        15,
+        16
+      ],
+      "entry_conditions": [
+        "phoenix_cluster_active"
+      ],
+      "exit_conditions": [
+        "weight_threshold_met"
+      ],
+      "liveness_target": "P02 reachable from C01 within 2 steps",
+      "notes": "Cluster: Phoenix. Dormant: false."
+    },
+    {
+      "id": 3,
+      "node_id": "P03",
+      "x": 42.99,
+      "y": 27.5,
+      "label": "Ember",
+      "number": 3,
+      "weight": 0.5,
+      "guardian": "Phoenix",
+      "triad": "Alpha",
+      "hexagram": "IV - Youthful Folly",
+      "type": "cluster",
+      "transitions": [
+        16,
+        17
+      ],
+      "entry_conditions": [
+        "phoenix_cluster_active"
+      ],
+      "exit_conditions": [
+        "weight_threshold_met"
+      ],
+      "liveness_target": "P03 reachable from C01 within 2 steps",
+      "notes": "Cluster: Phoenix. Dormant: false."
+    },
+    {
+      "id": 4,
+      "node_id": "P04",
+      "x": 30.0,
+      "y": 35.0,
+      "label": "Ascent",
+      "number": 4,
+      "weight": 0.7,
+      "guardian": "Phoenix",
+      "triad": "Beta",
+      "hexagram": "V - Waiting",
+      "type": "cluster",
+      "transitions": [
+        17,
+        18,
+        91
+      ],
+      "entry_conditions": [
+        "phoenix_cluster_active"
+      ],
+      "exit_conditions": [
+        "weight_threshold_met"
+      ],
+      "liveness_target": "P04 reachable from C01 within 2 steps",
+      "notes": "Cluster: Phoenix. Dormant: false."
+    },
+    {
+      "id": 5,
+      "node_id": "P05",
+      "x": 17.01,
+      "y": 27.5,
+      "label": "Corona",
+      "number": 5,
+      "weight": 0.9,
+      "guardian": "Phoenix",
+      "triad": "Beta",
+      "hexagram": "VI - Conflict",
+      "type": "cluster",
+      "transitions": [
+        18,
+        19,
+        86
+      ],
+      "entry_conditions": [
+        "phoenix_cluster_active"
+      ],
+      "exit_conditions": [
+        "weight_threshold_met"
+      ],
+      "liveness_target": "P05 reachable from C01 within 2 steps",
+      "notes": "Cluster: Phoenix. Dormant: false."
+    },
+    {
+      "id": 6,
+      "node_id": "P06",
+      "x": 17.01,
+      "y": 12.5,
+      "label": "Zenith",
+      "number": 6,
+      "weight": 1.0,
+      "guardian": "Phoenix",
+      "triad": "Beta",
+      "hexagram": "VII - Army",
+      "type": "cluster",
+      "transitions": [
+        5,
+        10,
+        19,
+        81
+      ],
+      "entry_conditions": [
+        "phoenix_cluster_active"
+      ],
+      "exit_conditions": [
+        "weight_threshold_met"
+      ],
+      "liveness_target": "P06 reachable from C01 within 2 steps",
+      "notes": "Cluster: Phoenix. Dormant: false."
+    },
+    {
+      "id": 7,
+      "node_id": "D01",
+      "x": 75.0,
+      "y": 8.0,
+      "label": "Scale",
+      "number": 7,
+      "weight": 0.7,
+      "guardian": "Dragon",
+      "triad": "Gamma",
+      "hexagram": "VIII - Holding Together",
+      "type": "cluster",
+      "transitions": [
+        1,
+        6,
+        10,
+        20,
+        82
+      ],
+      "entry_conditions": [
+        "dragon_cluster_active"
+      ],
+      "exit_conditions": [
+        "weight_threshold_met"
+      ],
+      "liveness_target": "D01 reachable from C01 within 2 steps",
+      "notes": "Cluster: Dragon. Dormant: false."
+    },
+    {
+      "id": 8,
+      "node_id": "D02",
+      "x": 87.12,
+      "y": 15.0,
+      "label": "Fang",
+      "number": 8,
+      "weight": 0.5,
+      "guardian": "Dragon",
+      "triad": "Gamma",
+      "hexagram": "IX - Small Taming",
+      "type": "cluster",
+      "transitions": [
+        20,
+        21,
+        77
+      ],
+      "entry_conditions": [
+        "dragon_cluster_active"
+      ],
+      "exit_conditions": [
+        "weight_threshold_met"
+      ],
+      "liveness_target": "D02 reachable from C01 within 2 steps",
+      "notes": "Cluster: Dragon. Dormant: false."
+    },
+    {
+      "id": 9,
+      "node_id": "D03",
+      "x": 87.12,
+      "y": 29.0,
+      "label": "Coil",
+      "number": 9,
+      "weight": 0.6,
+      "guardian": "Dragon",
+      "triad": "Gamma",
+      "hexagram": "X - Treading",
+      "type": "cluster",
+      "transitions": [
+        21,
+        22
+      ],
+      "entry_conditions": [
+        "dragon_cluster_active"
+      ],
+      "exit_conditions": [
+        "weight_threshold_met"
+      ],
+      "liveness_target": "D03 reachable from C01 within 2 steps",
+      "notes": "Cluster: Dragon. Dormant: false."
+    },
+    {
+      "id": 10,
+      "node_id": "D04",
+      "x": 75.0,
+      "y": 36.0,
+      "label": "Wing",
+      "number": 10,
+      "weight": 0.8,
+      "guardian": "Dragon",
+      "triad": "Delta",
+      "hexagram": "XI - Peace",
+      "type": "cluster",
+      "transitions": [
+        22,
+        23
+      ],
+      "entry_conditions": [
+        "dragon_cluster_active"
+      ],
+      "exit_conditions": [
+        "weight_threshold_met"
+      ],
+      "liveness_target": "D04 reachable from C01 within 2 steps",
+      "notes": "Cluster: Dragon. Dormant: false."
+    },
+    {
+      "id": 11,
+      "node_id": "D05",
+      "x": 62.88,
+      "y": 29.0,
+      "label": "Breath",
+      "number": 11,
+      "weight": 0.9,
+      "guardian": "Dragon",
+      "triad": "Delta",
+      "hexagram": "XII - Standstill",
+      "type": "cluster",
+      "transitions": [
+        23,
+        24,
+        92
+      ],
+      "entry_conditions": [
+        "dragon_cluster_active"
+      ],
+      "exit_conditions": [
+        "weight_threshold_met"
+      ],
+      "liveness_target": "D05 reachable from C01 within 2 steps",
+      "notes": "Cluster: Dragon. Dormant: false."
+    },
+    {
+      "id": 12,
+      "node_id": "D06",
+      "x": 62.88,
+      "y": 15.0,
+      "label": "Crown",
+      "number": 12,
+      "weight": 1.0,
+      "guardian": "Dragon",
+      "triad": "Delta",
+      "hexagram": "XIII - Fellowship",
+      "type": "cluster",
+      "transitions": [
+        6,
+        11,
+        24,
+        87
+      ],
+      "entry_conditions": [
+        "dragon_cluster_active"
+      ],
+      "exit_conditions": [
+        "weight_threshold_met"
+      ],
+      "liveness_target": "D06 reachable from C01 within 2 steps",
+      "notes": "Cluster: Dragon. Dormant: false."
+    },
+    {
+      "id": 13,
+      "node_id": "L01",
+      "x": 85.0,
+      "y": 42.0,
+      "label": "Mane",
+      "number": 13,
+      "weight": 0.6,
+      "guardian": "Lion",
+      "triad": "Epsilon",
+      "hexagram": "XIV - Great Possession",
+      "type": "cluster",
+      "transitions": [
+        2,
+        7,
+        11,
+        25,
+        88
+      ],
+      "entry_conditions": [
+        "lion_cluster_active"
+      ],
+      "exit_conditions": [
+        "weight_threshold_met"
+      ],
+      "liveness_target": "L01 reachable from C01 within 2 steps",
+      "notes": "Cluster: Lion. Dormant: false."
+    },
+    {
+      "id": 14,
+      "node_id": "L02",
+      "x": 96.26,
+      "y": 48.5,
+      "label": "Roar",
+      "number": 14,
+      "weight": 0.5,
+      "guardian": "Lion",
+      "triad": "Epsilon",
+      "hexagram": "XV - Modesty",
+      "type": "cluster",
+      "transitions": [
+        25,
+        26,
+        83
+      ],
+      "entry_conditions": [
+        "lion_cluster_active"
+      ],
+      "exit_conditions": [
+        "weight_threshold_met"
+      ],
+      "liveness_target": "L02 reachable from C01 within 2 steps",
+      "notes": "Cluster: Lion. Dormant: false."
+    },
+    {
+      "id": 15,
+      "node_id": "L03",
+      "x": 96.26,
+      "y": 61.5,
+      "label": "Stride",
+      "number": 15,
+      "weight": 0.7,
+      "guardian": "Lion",
+      "triad": "Epsilon",
+      "hexagram": "XVI - Enthusiasm",
+      "type": "cluster",
+      "transitions": [
+        26,
+        27,
+        78
+      ],
+      "entry_conditions": [
+        "lion_cluster_active"
+      ],
+      "exit_conditions": [
+        "weight_threshold_met"
+      ],
+      "liveness_target": "L03 reachable from C01 within 2 steps",
+      "notes": "Cluster: Lion. Dormant: false."
+    },
+    {
+      "id": 16,
+      "node_id": "L04",
+      "x": 85.0,
+      "y": 68.0,
+      "label": "Pride",
+      "number": 16,
+      "weight": 0.8,
+      "guardian": "Lion",
+      "triad": "Zeta",
+      "hexagram": "I - Creative",
+      "type": "cluster",
+      "transitions": [
+        27,
+        28
+      ],
+      "entry_conditions": [
+        "lion_cluster_active"
+      ],
+      "exit_conditions": [
+        "weight_threshold_met"
+      ],
+      "liveness_target": "L04 reachable from C01 within 2 steps",
+      "notes": "Cluster: Lion. Dormant: false."
+    },
+    {
+      "id": 17,
+      "node_id": "L05",
+      "x": 73.74,
+      "y": 61.5,
+      "label": "Heart",
+      "number": 17,
+      "weight": 0.9,
+      "guardian": "Lion",
+      "triad": "Zeta",
+      "hexagram": "II - Receptive",
+      "type": "cluster",
+      "transitions": [
+        28,
+        29
+      ],
+      "entry_conditions": [
+        "lion_cluster_active"
+      ],
+      "exit_conditions": [
+        "weight_threshold_met"
+      ],
+      "liveness_target": "L05 reachable from C01 within 2 steps",
+      "notes": "Cluster: Lion. Dormant: false."
+    },
+    {
+      "id": 18,
+      "node_id": "L06",
+      "x": 73.74,
+      "y": 48.5,
+      "label": "Throne",
+      "number": 18,
+      "weight": 1.0,
+      "guardian": "Lion",
+      "triad": "Zeta",
+      "hexagram": "III - Difficulty",
+      "type": "cluster",
+      "transitions": [
+        7,
+        12,
+        29,
+        93
+      ],
+      "entry_conditions": [
+        "lion_cluster_active"
+      ],
+      "exit_conditions": [
+        "weight_threshold_met"
+      ],
+      "liveness_target": "L06 reachable from C01 within 2 steps",
+      "notes": "Cluster: Lion. Dormant: false."
+    },
+    {
+      "id": 19,
+      "node_id": "R01",
+      "x": 70.0,
+      "y": 68.0,
+      "label": "Feather",
+      "number": 19,
+      "weight": 0.5,
+      "guardian": "Raven",
+      "triad": "Eta",
+      "hexagram": "IV - Youthful Folly",
+      "type": "cluster",
+      "transitions": [
+        3,
+        8,
+        12,
+        30,
+        94
+      ],
+      "entry_conditions": [
+        "raven_cluster_active"
+      ],
+      "exit_conditions": [
+        "weight_threshold_met"
+      ],
+      "liveness_target": "R01 reachable from C01 within 2 steps",
+      "notes": "Cluster: Raven. Dormant: false."
+    },
+    {
+      "id": 20,
+      "node_id": "R02",
+      "x": 82.12,
+      "y": 75.0,
+      "label": "Eye",
+      "number": 20,
+      "weight": 0.6,
+      "guardian": "Raven",
+      "triad": "Eta",
+      "hexagram": "V - Waiting",
+      "type": "cluster",
+      "transitions": [
+        30,
+        31,
+        89
+      ],
+      "entry_conditions": [
+        "raven_cluster_active"
+      ],
+      "exit_conditions": [
+        "weight_threshold_met"
+      ],
+      "liveness_target": "R02 reachable from C01 within 2 steps",
+      "notes": "Cluster: Raven. Dormant: false."
+    },
+    {
+      "id": 21,
+      "node_id": "R03",
+      "x": 82.12,
+      "y": 89.0,
+      "label": "Call",
+      "number": 21,
+      "weight": 0.7,
+      "guardian": "Raven",
+      "triad": "Eta",
+      "hexagram": "VI - Conflict",
+      "type": "cluster",
+      "transitions": [
+        31,
+        32,
+        84
+      ],
+      "entry_conditions": [
+        "raven_cluster_active"
+      ],
+      "exit_conditions": [
+        "weight_threshold_met"
+      ],
+      "liveness_target": "R03 reachable from C01 within 2 steps",
+      "notes": "Cluster: Raven. Dormant: false."
+    },
+    {
+      "id": 22,
+      "node_id": "R04",
+      "x": 70.0,
+      "y": 96.0,
+      "label": "Shadow",
+      "number": 22,
+      "weight": 0.8,
+      "guardian": "Raven",
+      "triad": "Theta",
+      "hexagram": "VII - Army",
+      "type": "cluster",
+      "transitions": [
+        32,
+        33,
+        79
+      ],
+      "entry_conditions": [
+        "raven_cluster_active"
+      ],
+      "exit_conditions": [
+        "weight_threshold_met"
+      ],
+      "liveness_target": "R04 reachable from C01 within 2 steps",
+      "notes": "Cluster: Raven. Dormant: false."
+    },
+    {
+      "id": 23,
+      "node_id": "R05",
+      "x": 57.88,
+      "y": 89.0,
+      "label": "Flight",
+      "number": 23,
+      "weight": 0.9,
+      "guardian": "Raven",
+      "triad": "Theta",
+      "hexagram": "VIII - Holding Together",
+      "type": "cluster",
+      "transitions": [
+        33,
+        34
+      ],
+      "entry_conditions": [
+        "raven_cluster_active"
+      ],
+      "exit_conditions": [
+        "weight_threshold_met"
+      ],
+      "liveness_target": "R05 reachable from C01 within 2 steps",
+      "notes": "Cluster: Raven. Dormant: false."
+    },
+    {
+      "id": 24,
+      "node_id": "R06",
+      "x": 57.88,
+      "y": 75.0,
+      "label": "Oracle",
+      "number": 24,
+      "weight": 1.0,
+      "guardian": "Raven",
+      "triad": "Theta",
+      "hexagram": "IX - Small Taming",
+      "type": "cluster",
+      "transitions": [
+        8,
+        13,
+        34
+      ],
+      "entry_conditions": [
+        "raven_cluster_active"
+      ],
+      "exit_conditions": [
+        "weight_threshold_met"
+      ],
+      "liveness_target": "R06 reachable from C01 within 2 steps",
+      "notes": "Cluster: Raven. Dormant: false."
+    },
+    {
+      "id": 25,
+      "node_id": "B01",
+      "x": 25.0,
+      "y": 65.0,
+      "label": "Cocoon",
+      "number": 25,
+      "weight": 0.4,
+      "guardian": "Butterfly",
+      "triad": "Iota",
+      "hexagram": "X - Treading",
+      "type": "cluster",
+      "transitions": [
+        4,
+        9,
+        13,
+        35
+      ],
+      "entry_conditions": [
+        "butterfly_cluster_active"
+      ],
+      "exit_conditions": [
+        "weight_threshold_met"
+      ],
+      "liveness_target": "B01 reachable from C01 within 2 steps",
+      "notes": "Cluster: Butterfly. Dormant: false."
+    },
+    {
+      "id": 26,
+      "node_id": "B02",
+      "x": 36.26,
+      "y": 71.5,
+      "label": "Wing-Left",
+      "number": 26,
+      "weight": 0.5,
+      "guardian": "Butterfly",
+      "triad": "Iota",
+      "hexagram": "XI - Peace",
+      "type": "cluster",
+      "transitions": [
+        35,
+        36,
+        95
+      ],
+      "entry_conditions": [
+        "butterfly_cluster_active"
+      ],
+      "exit_conditions": [
+        "weight_threshold_met"
+      ],
+      "liveness_target": "B02 reachable from C01 within 2 steps",
+      "notes": "Cluster: Butterfly. Dormant: false."
+    },
+    {
+      "id": 27,
+      "node_id": "B03",
+      "x": 36.26,
+      "y": 84.5,
+      "label": "Wing-Right",
+      "number": 27,
+      "weight": 0.6,
+      "guardian": "Butterfly",
+      "triad": "Iota",
+      "hexagram": "XII - Standstill",
+      "type": "cluster",
+      "transitions": [
+        36,
+        37,
+        90
+      ],
+      "entry_conditions": [
+        "butterfly_cluster_active"
+      ],
+      "exit_conditions": [
+        "weight_threshold_met"
+      ],
+      "liveness_target": "B03 reachable from C01 within 2 steps",
+      "notes": "Cluster: Butterfly. Dormant: false."
+    },
+    {
+      "id": 28,
+      "node_id": "B04",
+      "x": 25.0,
+      "y": 91.0,
+      "label": "Spiral",
+      "number": 28,
+      "weight": 0.7,
+      "guardian": "Butterfly",
+      "triad": "Kappa",
+      "hexagram": "XIII - Fellowship",
+      "type": "cluster",
+      "transitions": [
+        37,
+        38,
+        85
+      ],
+      "entry_conditions": [
+        "butterfly_cluster_active"
+      ],
+      "exit_conditions": [
+        "weight_threshold_met"
+      ],
+      "liveness_target": "B04 reachable from C01 within 2 steps",
+      "notes": "Cluster: Butterfly. Dormant: false."
+    },
+    {
+      "id": 29,
+      "node_id": "B05",
+      "x": 13.74,
+      "y": 84.5,
+      "label": "Bloom",
+      "number": 29,
+      "weight": 0.8,
+      "guardian": "Butterfly",
+      "triad": "Kappa",
+      "hexagram": "XIV - Great Possession",
+      "type": "cluster",
+      "transitions": [
+        38,
+        39,
+        80
+      ],
+      "entry_conditions": [
+        "butterfly_cluster_active"
+      ],
+      "exit_conditions": [
+        "weight_threshold_met"
+      ],
+      "liveness_target": "B05 reachable from C01 within 2 steps",
+      "notes": "Cluster: Butterfly. Dormant: false."
+    },
+    {
+      "id": 30,
+      "node_id": "B06",
+      "x": 13.74,
+      "y": 71.5,
+      "label": "Luminance",
+      "number": 30,
+      "weight": 1.0,
+      "guardian": "Butterfly",
+      "triad": "Kappa",
+      "hexagram": "XV - Modesty",
+      "type": "cluster",
+      "transitions": [
+        9,
+        14,
+        39
+      ],
+      "entry_conditions": [
+        "butterfly_cluster_active"
+      ],
+      "exit_conditions": [
+        "weight_threshold_met"
+      ],
+      "liveness_target": "B06 reachable from C01 within 2 steps",
+      "notes": "Cluster: Butterfly. Dormant: false."
+    },
+    {
+      "id": 31,
+      "node_id": "N01",
+      "x": 80.0,
+      "y": 50.0,
+      "label": "Meridian",
+      "number": 31,
+      "weight": 0.3,
+      "guardian": "Phoenix",
+      "triad": "Lambda",
+      "hexagram": "XVI - Enthusiasm",
+      "type": "generic",
+      "transitions": [
+        40,
+        75,
+        76,
+        96
+      ],
+      "entry_conditions": [
+        "path_weight_sufficient"
+      ],
+      "exit_conditions": [
+        "next_node_unlocked"
+      ],
+      "liveness_target": "N01 reachable from C01 within 4 steps",
+      "notes": "Generic interstitial node. Dormant: false."
+    },
+    {
+      "id": 32,
+      "node_id": "N02",
+      "x": 87.42,
+      "y": 56.6,
+      "label": "Threshold",
+      "number": 32,
+      "weight": 0.37,
+      "guardian": "Dragon",
+      "triad": "Lambda",
+      "hexagram": "I - Creative",
+      "type": "generic",
+      "transitions": [
+        40,
+        41,
+        77
+      ],
+      "entry_conditions": [
+        "path_weight_sufficient"
+      ],
+      "exit_conditions": [
+        "next_node_unlocked"
+      ],
+      "liveness_target": "N02 reachable from C01 within 4 steps",
+      "notes": "Generic interstitial node. Dormant: false."
+    },
+    {
+      "id": 33,
+      "node_id": "N03",
+      "x": 93.23,
+      "y": 65.73,
+      "label": "Echo",
+      "number": 33,
+      "weight": 0.44,
+      "guardian": "Lion",
+      "triad": "Lambda",
+      "hexagram": "II - Receptive",
+      "type": "generic",
+      "transitions": [
+        41,
+        42,
+        78
+      ],
+      "entry_conditions": [
+        "path_weight_sufficient"
+      ],
+      "exit_conditions": [
+        "next_node_unlocked"
+      ],
+      "liveness_target": "N03 reachable from C01 within 4 steps",
+      "notes": "Generic interstitial node. Dormant: false."
+    },
+    {
+      "id": 34,
+      "node_id": "N04",
+      "x": 75.98,
+      "y": 65.0,
+      "label": "Pulse",
+      "number": 34,
+      "weight": 0.51,
+      "guardian": "Raven",
+      "triad": "Mu",
+      "hexagram": "III - Difficulty",
+      "type": "generic",
+      "transitions": [
+        42,
+        43,
+        79,
+        97
+      ],
+      "entry_conditions": [
+        "path_weight_sufficient"
+      ],
+      "exit_conditions": [
+        "next_node_unlocked"
+      ],
+      "liveness_target": "N04 reachable from C01 within 4 steps",
+      "notes": "Generic interstitial node. Dormant: false."
+    },
+    {
+      "id": 35,
+      "node_id": "N05",
+      "x": 79.11,
+      "y": 74.43,
+      "label": "Drift",
+      "number": 35,
+      "weight": 0.58,
+      "guardian": "Butterfly",
+      "triad": "Mu",
+      "hexagram": "IV - Youthful Folly",
+      "type": "generic",
+      "transitions": [
+        43,
+        44,
+        80
+      ],
+      "entry_conditions": [
+        "path_weight_sufficient"
+      ],
+      "exit_conditions": [
+        "next_node_unlocked"
+      ],
+      "liveness_target": "N05 reachable from C01 within 4 steps",
+      "notes": "Generic interstitial node. Dormant: false."
+    },
+    {
+      "id": 36,
+      "node_id": "N06",
+      "x": 79.57,
+      "y": 85.24,
+      "label": "Veil",
+      "number": 36,
+      "weight": 0.65,
+      "guardian": "Ouroboros",
+      "triad": "Mu",
+      "hexagram": "V - Waiting",
+      "type": "generic",
+      "transitions": [
+        44,
+        45,
+        81
+      ],
+      "entry_conditions": [
+        "path_weight_sufficient"
+      ],
+      "exit_conditions": [
+        "next_node_unlocked"
+      ],
+      "liveness_target": "N06 reachable from C01 within 4 steps",
+      "notes": "Generic interstitial node. Dormant: false."
+    },
+    {
+      "id": 37,
+      "node_id": "N07",
+      "x": 65.0,
+      "y": 75.98,
+      "label": "Arc",
+      "number": 37,
+      "weight": 0.72,
+      "guardian": "Phoenix",
+      "triad": "Nu",
+      "hexagram": "VI - Conflict",
+      "type": "generic",
+      "transitions": [
+        45,
+        46,
+        82,
+        98
+      ],
+      "entry_conditions": [
+        "path_weight_sufficient"
+      ],
+      "exit_conditions": [
+        "next_node_unlocked"
+      ],
+      "liveness_target": "N07 reachable from C01 within 4 steps",
+      "notes": "Generic interstitial node. Dormant: false."
+    },
+    {
+      "id": 38,
+      "node_id": "N08",
+      "x": 63.0,
+      "y": 85.71,
+      "label": "Fulcrum",
+      "number": 38,
+      "weight": 0.79,
+      "guardian": "Dragon",
+      "triad": "Nu",
+      "hexagram": "VII - Army",
+      "type": "generic",
+      "transitions": [
+        46,
+        47,
+        83
+      ],
+      "entry_conditions": [
+        "path_weight_sufficient"
+      ],
+      "exit_conditions": [
+        "next_node_unlocked"
+      ],
+      "liveness_target": "N08 reachable from C01 within 4 steps",
+      "notes": "Generic interstitial node. Dormant: true."
+    },
+    {
+      "id": 39,
+      "node_id": "N09",
+      "x": 57.99,
+      "y": 95.3,
+      "label": "Shard",
+      "number": 39,
+      "weight": 0.86,
+      "guardian": "Lion",
+      "triad": "Nu",
+      "hexagram": "VIII - Holding Together",
+      "type": "generic",
+      "transitions": [
+        47,
+        48,
+        84
+      ],
+      "entry_conditions": [
+        "path_weight_sufficient"
+      ],
+      "exit_conditions": [
+        "next_node_unlocked"
+      ],
+      "liveness_target": "N09 reachable from C01 within 4 steps",
+      "notes": "Generic interstitial node. Dormant: false."
+    },
+    {
+      "id": 40,
+      "node_id": "N10",
+      "x": 50.0,
+      "y": 80.0,
+      "label": "Ripple",
+      "number": 40,
+      "weight": 0.93,
+      "guardian": "Raven",
+      "triad": "Xi",
+      "hexagram": "IX - Small Taming",
+      "type": "generic",
+      "transitions": [
+        48,
+        49,
+        85,
+        99
+      ],
+      "entry_conditions": [
+        "path_weight_sufficient"
+      ],
+      "exit_conditions": [
+        "next_node_unlocked"
+      ],
+      "liveness_target": "N10 reachable from C01 within 4 steps",
+      "notes": "Generic interstitial node. Dormant: false."
+    },
+    {
+      "id": 41,
+      "node_id": "N11",
+      "x": 43.4,
+      "y": 87.42,
+      "label": "Gate",
+      "number": 41,
+      "weight": 0.3,
+      "guardian": "Butterfly",
+      "triad": "Xi",
+      "hexagram": "X - Treading",
+      "type": "generic",
+      "transitions": [
+        49,
+        50,
+        86
+      ],
+      "entry_conditions": [
+        "path_weight_sufficient"
+      ],
+      "exit_conditions": [
+        "next_node_unlocked"
+      ],
+      "liveness_target": "N11 reachable from C01 within 4 steps",
+      "notes": "Generic interstitial node. Dormant: false."
+    },
+    {
+      "id": 42,
+      "node_id": "N12",
+      "x": 34.27,
+      "y": 93.23,
+      "label": "Sigil",
+      "number": 42,
+      "weight": 0.37,
+      "guardian": "Ouroboros",
+      "triad": "Xi",
+      "hexagram": "XI - Peace",
+      "type": "generic",
+      "transitions": [
+        50,
+        51,
+        87
+      ],
+      "entry_conditions": [
+        "path_weight_sufficient"
+      ],
+      "exit_conditions": [
+        "next_node_unlocked"
+      ],
+      "liveness_target": "N12 reachable from C01 within 4 steps",
+      "notes": "Generic interstitial node. Dormant: false."
+    },
+    {
+      "id": 43,
+      "node_id": "N13",
+      "x": 35.0,
+      "y": 75.98,
+      "label": "Lattice",
+      "number": 43,
+      "weight": 0.44,
+      "guardian": "Phoenix",
+      "triad": "Omicron",
+      "hexagram": "XII - Standstill",
+      "type": "generic",
+      "transitions": [
+        51,
+        52,
+        88,
+        100
+      ],
+      "entry_conditions": [
+        "path_weight_sufficient"
+      ],
+      "exit_conditions": [
+        "next_node_unlocked"
+      ],
+      "liveness_target": "N13 reachable from C01 within 4 steps",
+      "notes": "Generic interstitial node. Dormant: false."
+    },
+    {
+      "id": 44,
+      "node_id": "N14",
+      "x": 25.57,
+      "y": 79.11,
+      "label": "Mirror",
+      "number": 44,
+      "weight": 0.51,
+      "guardian": "Dragon",
+      "triad": "Omicron",
+      "hexagram": "XIII - Fellowship",
+      "type": "generic",
+      "transitions": [
+        52,
+        53,
+        89
+      ],
+      "entry_conditions": [
+        "path_weight_sufficient"
+      ],
+      "exit_conditions": [
+        "next_node_unlocked"
+      ],
+      "liveness_target": "N14 reachable from C01 within 4 steps",
+      "notes": "Generic interstitial node. Dormant: false."
+    },
+    {
+      "id": 45,
+      "node_id": "N15",
+      "x": 14.76,
+      "y": 79.57,
+      "label": "Prism",
+      "number": 45,
+      "weight": 0.58,
+      "guardian": "Lion",
+      "triad": "Omicron",
+      "hexagram": "XIV - Great Possession",
+      "type": "generic",
+      "transitions": [
+        53,
+        54,
+        90
+      ],
+      "entry_conditions": [
+        "path_weight_sufficient"
+      ],
+      "exit_conditions": [
+        "next_node_unlocked"
+      ],
+      "liveness_target": "N15 reachable from C01 within 4 steps",
+      "notes": "Generic interstitial node. Dormant: false."
+    },
+    {
+      "id": 46,
+      "node_id": "N16",
+      "x": 24.02,
+      "y": 65.0,
+      "label": "Anchor",
+      "number": 46,
+      "weight": 0.65,
+      "guardian": "Raven",
+      "triad": "Pi",
+      "hexagram": "XV - Modesty",
+      "type": "generic",
+      "transitions": [
+        54,
+        55,
+        91,
+        101
+      ],
+      "entry_conditions": [
+        "path_weight_sufficient"
+      ],
+      "exit_conditions": [
+        "next_node_unlocked"
+      ],
+      "liveness_target": "N16 reachable from C01 within 4 steps",
+      "notes": "Generic interstitial node. Dormant: true."
+    },
+    {
+      "id": 47,
+      "node_id": "N17",
+      "x": 14.29,
+      "y": 63.0,
+      "label": "Tide",
+      "number": 47,
+      "weight": 0.72,
+      "guardian": "Butterfly",
+      "triad": "Pi",
+      "hexagram": "XVI - Enthusiasm",
+      "type": "generic",
+      "transitions": [
+        55,
+        56,
+        92
+      ],
+      "entry_conditions": [
+        "path_weight_sufficient"
+      ],
+      "exit_conditions": [
+        "next_node_unlocked"
+      ],
+      "liveness_target": "N17 reachable from C01 within 4 steps",
+      "notes": "Generic interstitial node. Dormant: false."
+    },
+    {
+      "id": 48,
+      "node_id": "N18",
+      "x": 4.7,
+      "y": 57.99,
+      "label": "Spark",
+      "number": 48,
+      "weight": 0.79,
+      "guardian": "Ouroboros",
+      "triad": "Pi",
+      "hexagram": "I - Creative",
+      "type": "generic",
+      "transitions": [
+        56,
+        57,
+        93
+      ],
+      "entry_conditions": [
+        "path_weight_sufficient"
+      ],
+      "exit_conditions": [
+        "next_node_unlocked"
+      ],
+      "liveness_target": "N18 reachable from C01 within 4 steps",
+      "notes": "Generic interstitial node. Dormant: false."
+    },
+    {
+      "id": 49,
+      "node_id": "N19",
+      "x": 20.0,
+      "y": 50.0,
+      "label": "Haze",
+      "number": 49,
+      "weight": 0.86,
+      "guardian": "Phoenix",
+      "triad": "Rho",
+      "hexagram": "II - Receptive",
+      "type": "generic",
+      "transitions": [
+        57,
+        58,
+        94,
+        102
+      ],
+      "entry_conditions": [
+        "path_weight_sufficient"
+      ],
+      "exit_conditions": [
+        "next_node_unlocked"
+      ],
+      "liveness_target": "N19 reachable from C01 within 4 steps",
+      "notes": "Generic interstitial node. Dormant: false."
+    },
+    {
+      "id": 50,
+      "node_id": "N20",
+      "x": 12.58,
+      "y": 43.4,
+      "label": "Crucible",
+      "number": 50,
+      "weight": 0.93,
+      "guardian": "Dragon",
+      "triad": "Rho",
+      "hexagram": "III - Difficulty",
+      "type": "generic",
+      "transitions": [
+        58,
+        59,
+        95
+      ],
+      "entry_conditions": [
+        "path_weight_sufficient"
+      ],
+      "exit_conditions": [
+        "next_node_unlocked"
+      ],
+      "liveness_target": "N20 reachable from C01 within 4 steps",
+      "notes": "Generic interstitial node. Dormant: false."
+    },
+    {
+      "id": 51,
+      "node_id": "N21",
+      "x": 6.77,
+      "y": 34.27,
+      "label": "Thread",
+      "number": 51,
+      "weight": 0.3,
+      "guardian": "Lion",
+      "triad": "Rho",
+      "hexagram": "IV - Youthful Folly",
+      "type": "generic",
+      "transitions": [
+        59,
+        60
+      ],
+      "entry_conditions": [
+        "path_weight_sufficient"
+      ],
+      "exit_conditions": [
+        "next_node_unlocked"
+      ],
+      "liveness_target": "N21 reachable from C01 within 4 steps",
+      "notes": "Generic interstitial node. Dormant: false."
+    },
+    {
+      "id": 52,
+      "node_id": "N22",
+      "x": 24.02,
+      "y": 35.0,
+      "label": "Bloom",
+      "number": 52,
+      "weight": 0.37,
+      "guardian": "Raven",
+      "triad": "Sigma",
+      "hexagram": "V - Waiting",
+      "type": "generic",
+      "transitions": [
+        60,
+        61,
+        103
+      ],
+      "entry_conditions": [
+        "path_weight_sufficient"
+      ],
+      "exit_conditions": [
+        "next_node_unlocked"
+      ],
+      "liveness_target": "N22 reachable from C01 within 4 steps",
+      "notes": "Generic interstitial node. Dormant: false."
+    },
+    {
+      "id": 53,
+      "node_id": "N23",
+      "x": 20.89,
+      "y": 25.57,
+      "label": "Fracture",
+      "number": 53,
+      "weight": 0.44,
+      "guardian": "Butterfly",
+      "triad": "Sigma",
+      "hexagram": "VI - Conflict",
+      "type": "generic",
+      "transitions": [
+        61,
+        62
+      ],
+      "entry_conditions": [
+        "path_weight_sufficient"
+      ],
+      "exit_conditions": [
+        "next_node_unlocked"
+      ],
+      "liveness_target": "N23 reachable from C01 within 4 steps",
+      "notes": "Generic interstitial node. Dormant: false."
+    },
+    {
+      "id": 54,
+      "node_id": "N24",
+      "x": 20.43,
+      "y": 14.76,
+      "label": "Haven",
+      "number": 54,
+      "weight": 0.51,
+      "guardian": "Ouroboros",
+      "triad": "Sigma",
+      "hexagram": "VII - Army",
+      "type": "generic",
+      "transitions": [
+        62,
+        63
+      ],
+      "entry_conditions": [
+        "path_weight_sufficient"
+      ],
+      "exit_conditions": [
+        "next_node_unlocked"
+      ],
+      "liveness_target": "N24 reachable from C01 within 4 steps",
+      "notes": "Generic interstitial node. Dormant: true."
+    },
+    {
+      "id": 55,
+      "node_id": "N25",
+      "x": 35.0,
+      "y": 24.02,
+      "label": "Nimbus",
+      "number": 55,
+      "weight": 0.58,
+      "guardian": "Phoenix",
+      "triad": "Tau",
+      "hexagram": "VIII - Holding Together",
+      "type": "generic",
+      "transitions": [
+        63,
+        64,
+        104
+      ],
+      "entry_conditions": [
+        "path_weight_sufficient"
+      ],
+      "exit_conditions": [
+        "next_node_unlocked"
+      ],
+      "liveness_target": "N25 reachable from C01 within 4 steps",
+      "notes": "Generic interstitial node. Dormant: false."
+    },
+    {
+      "id": 56,
+      "node_id": "N26",
+      "x": 37.0,
+      "y": 14.29,
+      "label": "Conduit",
+      "number": 56,
+      "weight": 0.65,
+      "guardian": "Dragon",
+      "triad": "Tau",
+      "hexagram": "IX - Small Taming",
+      "type": "generic",
+      "transitions": [
+        64,
+        65
+      ],
+      "entry_conditions": [
+        "path_weight_sufficient"
+      ],
+      "exit_conditions": [
+        "next_node_unlocked"
+      ],
+      "liveness_target": "N26 reachable from C01 within 4 steps",
+      "notes": "Generic interstitial node. Dormant: false."
+    },
+    {
+      "id": 57,
+      "node_id": "N27",
+      "x": 42.01,
+      "y": 4.7,
+      "label": "Vertex",
+      "number": 57,
+      "weight": 0.72,
+      "guardian": "Lion",
+      "triad": "Tau",
+      "hexagram": "X - Treading",
+      "type": "generic",
+      "transitions": [
+        65,
+        66
+      ],
+      "entry_conditions": [
+        "path_weight_sufficient"
+      ],
+      "exit_conditions": [
+        "next_node_unlocked"
+      ],
+      "liveness_target": "N27 reachable from C01 within 4 steps",
+      "notes": "Generic interstitial node. Dormant: false."
+    },
+    {
+      "id": 58,
+      "node_id": "N28",
+      "x": 50.0,
+      "y": 20.0,
+      "label": "Hollow",
+      "number": 58,
+      "weight": 0.79,
+      "guardian": "Raven",
+      "triad": "Upsilon",
+      "hexagram": "XI - Peace",
+      "type": "generic",
+      "transitions": [
+        66,
+        67,
+        105
+      ],
+      "entry_conditions": [
+        "path_weight_sufficient"
+      ],
+      "exit_conditions": [
+        "next_node_unlocked"
+      ],
+      "liveness_target": "N28 reachable from C01 within 4 steps",
+      "notes": "Generic interstitial node. Dormant: false."
+    },
+    {
+      "id": 59,
+      "node_id": "N29",
+      "x": 56.6,
+      "y": 12.58,
+      "label": "Radiance",
+      "number": 59,
+      "weight": 0.86,
+      "guardian": "Butterfly",
+      "triad": "Upsilon",
+      "hexagram": "XII - Standstill",
+      "type": "generic",
+      "transitions": [
+        67,
+        68
+      ],
+      "entry_conditions": [
+        "path_weight_sufficient"
+      ],
+      "exit_conditions": [
+        "next_node_unlocked"
+      ],
+      "liveness_target": "N29 reachable from C01 within 4 steps",
+      "notes": "Generic interstitial node. Dormant: false."
+    },
+    {
+      "id": 60,
+      "node_id": "N30",
+      "x": 65.73,
+      "y": 6.77,
+      "label": "Crest",
+      "number": 60,
+      "weight": 0.93,
+      "guardian": "Ouroboros",
+      "triad": "Upsilon",
+      "hexagram": "XIII - Fellowship",
+      "type": "generic",
+      "transitions": [
+        68,
+        69
+      ],
+      "entry_conditions": [
+        "path_weight_sufficient"
+      ],
+      "exit_conditions": [
+        "next_node_unlocked"
+      ],
+      "liveness_target": "N30 reachable from C01 within 4 steps",
+      "notes": "Generic interstitial node. Dormant: false."
+    },
+    {
+      "id": 61,
+      "node_id": "N31",
+      "x": 65.0,
+      "y": 24.02,
+      "label": "Dusk",
+      "number": 61,
+      "weight": 0.3,
+      "guardian": "Phoenix",
+      "triad": "Phi",
+      "hexagram": "XIV - Great Possession",
+      "type": "generic",
+      "transitions": [
+        69,
+        70,
+        106
+      ],
+      "entry_conditions": [
+        "path_weight_sufficient"
+      ],
+      "exit_conditions": [
+        "next_node_unlocked"
+      ],
+      "liveness_target": "N31 reachable from C01 within 4 steps",
+      "notes": "Generic interstitial node. Dormant: false."
+    },
+    {
+      "id": 62,
+      "node_id": "N32",
+      "x": 74.43,
+      "y": 20.89,
+      "label": "Dawn",
+      "number": 62,
+      "weight": 0.37,
+      "guardian": "Dragon",
+      "triad": "Phi",
+      "hexagram": "XV - Modesty",
+      "type": "generic",
+      "transitions": [
+        70,
+        71
+      ],
+      "entry_conditions": [
+        "path_weight_sufficient"
+      ],
+      "exit_conditions": [
+        "next_node_unlocked"
+      ],
+      "liveness_target": "N32 reachable from C01 within 4 steps",
+      "notes": "Generic interstitial node. Dormant: true."
+    },
+    {
+      "id": 63,
+      "node_id": "N33",
+      "x": 85.24,
+      "y": 20.43,
+      "label": "Aether",
+      "number": 63,
+      "weight": 0.44,
+      "guardian": "Lion",
+      "triad": "Phi",
+      "hexagram": "XVI - Enthusiasm",
+      "type": "generic",
+      "transitions": [
+        71,
+        72
+      ],
+      "entry_conditions": [
+        "path_weight_sufficient"
+      ],
+      "exit_conditions": [
+        "next_node_unlocked"
+      ],
+      "liveness_target": "N33 reachable from C01 within 4 steps",
+      "notes": "Generic interstitial node. Dormant: false."
+    },
+    {
+      "id": 64,
+      "node_id": "N34",
+      "x": 75.98,
+      "y": 35.0,
+      "label": "Terminus",
+      "number": 64,
+      "weight": 0.51,
+      "guardian": "Raven",
+      "triad": "Chi",
+      "hexagram": "I - Creative",
+      "type": "generic",
+      "transitions": [
+        72,
+        73,
+        107
+      ],
+      "entry_conditions": [
+        "path_weight_sufficient"
+      ],
+      "exit_conditions": [
+        "next_node_unlocked"
+      ],
+      "liveness_target": "N34 reachable from C01 within 4 steps",
+      "notes": "Generic interstitial node. Dormant: false."
+    },
+    {
+      "id": 65,
+      "node_id": "N35",
+      "x": 85.71,
+      "y": 37.0,
+      "label": "Origin",
+      "number": 65,
+      "weight": 0.58,
+      "guardian": "Butterfly",
+      "triad": "Chi",
+      "hexagram": "II - Receptive",
+      "type": "generic",
+      "transitions": [
+        73,
+        74
+      ],
+      "entry_conditions": [
+        "path_weight_sufficient"
+      ],
+      "exit_conditions": [
+        "next_node_unlocked"
+      ],
+      "liveness_target": "N35 reachable from C01 within 4 steps",
+      "notes": "Generic interstitial node. Dormant: false."
+    },
+    {
+      "id": 66,
+      "node_id": "N36",
+      "x": 95.3,
+      "y": 42.01,
+      "label": "Void",
+      "number": 66,
+      "weight": 0.65,
+      "guardian": "Ouroboros",
+      "triad": "Chi",
+      "hexagram": "III - Difficulty",
+      "type": "generic",
+      "transitions": [
+        74,
+        75
+      ],
+      "entry_conditions": [
+        "path_weight_sufficient"
+      ],
+      "exit_conditions": [
+        "next_node_unlocked"
+      ],
+      "liveness_target": "N36 reachable from C01 within 4 steps",
+      "notes": "Generic interstitial node. Dormant: false."
+    }
+  ],
+  "transitions": [
+    {
+      "id": 0,
+      "from": "C01",
+      "to": "P01",
+      "weight": 1.0,
+      "condition": "intention_declared",
+      "bidirectional": true
+    },
+    {
+      "id": 1,
+      "from": "C01",
+      "to": "D01",
+      "weight": 1.0,
+      "condition": "intention_declared",
+      "bidirectional": true
+    },
+    {
+      "id": 2,
+      "from": "C01",
+      "to": "L01",
+      "weight": 1.0,
+      "condition": "intention_declared",
+      "bidirectional": true
+    },
+    {
+      "id": 3,
+      "from": "C01",
+      "to": "R01",
+      "weight": 1.0,
+      "condition": "intention_declared",
+      "bidirectional": true
+    },
+    {
+      "id": 4,
+      "from": "C01",
+      "to": "B01",
+      "weight": 1.0,
+      "condition": "intention_declared",
+      "bidirectional": true
+    },
+    {
+      "id": 5,
+      "from": "P06",
+      "to": "P01",
+      "weight": 0.8,
+      "condition": "cluster_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 6,
+      "from": "D06",
+      "to": "D01",
+      "weight": 0.8,
+      "condition": "cluster_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 7,
+      "from": "L06",
+      "to": "L01",
+      "weight": 0.8,
+      "condition": "cluster_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 8,
+      "from": "R06",
+      "to": "R01",
+      "weight": 0.8,
+      "condition": "cluster_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 9,
+      "from": "B06",
+      "to": "B01",
+      "weight": 0.8,
+      "condition": "cluster_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 10,
+      "from": "P06",
+      "to": "D01",
+      "weight": 0.6,
+      "condition": "bridge_crossing",
+      "bidirectional": true
+    },
+    {
+      "id": 11,
+      "from": "D06",
+      "to": "L01",
+      "weight": 0.6,
+      "condition": "bridge_crossing",
+      "bidirectional": true
+    },
+    {
+      "id": 12,
+      "from": "L06",
+      "to": "R01",
+      "weight": 0.6,
+      "condition": "bridge_crossing",
+      "bidirectional": true
+    },
+    {
+      "id": 13,
+      "from": "R06",
+      "to": "B01",
+      "weight": 0.6,
+      "condition": "bridge_crossing",
+      "bidirectional": true
+    },
+    {
+      "id": 14,
+      "from": "B06",
+      "to": "P01",
+      "weight": 0.6,
+      "condition": "bridge_crossing",
+      "bidirectional": true
+    },
+    {
+      "id": 15,
+      "from": "P01",
+      "to": "P02",
+      "weight": 0.7,
+      "condition": "cluster_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 16,
+      "from": "P02",
+      "to": "P03",
+      "weight": 0.7,
+      "condition": "cluster_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 17,
+      "from": "P03",
+      "to": "P04",
+      "weight": 0.7,
+      "condition": "cluster_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 18,
+      "from": "P04",
+      "to": "P05",
+      "weight": 0.7,
+      "condition": "cluster_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 19,
+      "from": "P05",
+      "to": "P06",
+      "weight": 0.7,
+      "condition": "cluster_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 20,
+      "from": "D01",
+      "to": "D02",
+      "weight": 0.7,
+      "condition": "cluster_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 21,
+      "from": "D02",
+      "to": "D03",
+      "weight": 0.7,
+      "condition": "cluster_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 22,
+      "from": "D03",
+      "to": "D04",
+      "weight": 0.7,
+      "condition": "cluster_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 23,
+      "from": "D04",
+      "to": "D05",
+      "weight": 0.7,
+      "condition": "cluster_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 24,
+      "from": "D05",
+      "to": "D06",
+      "weight": 0.7,
+      "condition": "cluster_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 25,
+      "from": "L01",
+      "to": "L02",
+      "weight": 0.7,
+      "condition": "cluster_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 26,
+      "from": "L02",
+      "to": "L03",
+      "weight": 0.7,
+      "condition": "cluster_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 27,
+      "from": "L03",
+      "to": "L04",
+      "weight": 0.7,
+      "condition": "cluster_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 28,
+      "from": "L04",
+      "to": "L05",
+      "weight": 0.7,
+      "condition": "cluster_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 29,
+      "from": "L05",
+      "to": "L06",
+      "weight": 0.7,
+      "condition": "cluster_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 30,
+      "from": "R01",
+      "to": "R02",
+      "weight": 0.7,
+      "condition": "cluster_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 31,
+      "from": "R02",
+      "to": "R03",
+      "weight": 0.7,
+      "condition": "cluster_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 32,
+      "from": "R03",
+      "to": "R04",
+      "weight": 0.7,
+      "condition": "cluster_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 33,
+      "from": "R04",
+      "to": "R05",
+      "weight": 0.7,
+      "condition": "cluster_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 34,
+      "from": "R05",
+      "to": "R06",
+      "weight": 0.7,
+      "condition": "cluster_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 35,
+      "from": "B01",
+      "to": "B02",
+      "weight": 0.7,
+      "condition": "cluster_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 36,
+      "from": "B02",
+      "to": "B03",
+      "weight": 0.7,
+      "condition": "cluster_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 37,
+      "from": "B03",
+      "to": "B04",
+      "weight": 0.7,
+      "condition": "cluster_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 38,
+      "from": "B04",
+      "to": "B05",
+      "weight": 0.7,
+      "condition": "cluster_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 39,
+      "from": "B05",
+      "to": "B06",
+      "weight": 0.7,
+      "condition": "cluster_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 40,
+      "from": "N01",
+      "to": "N02",
+      "weight": 0.5,
+      "condition": "ring_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 41,
+      "from": "N02",
+      "to": "N03",
+      "weight": 0.5,
+      "condition": "ring_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 42,
+      "from": "N03",
+      "to": "N04",
+      "weight": 0.5,
+      "condition": "ring_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 43,
+      "from": "N04",
+      "to": "N05",
+      "weight": 0.5,
+      "condition": "ring_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 44,
+      "from": "N05",
+      "to": "N06",
+      "weight": 0.5,
+      "condition": "ring_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 45,
+      "from": "N06",
+      "to": "N07",
+      "weight": 0.5,
+      "condition": "ring_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 46,
+      "from": "N07",
+      "to": "N08",
+      "weight": 0.5,
+      "condition": "ring_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 47,
+      "from": "N08",
+      "to": "N09",
+      "weight": 0.5,
+      "condition": "ring_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 48,
+      "from": "N09",
+      "to": "N10",
+      "weight": 0.5,
+      "condition": "ring_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 49,
+      "from": "N10",
+      "to": "N11",
+      "weight": 0.5,
+      "condition": "ring_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 50,
+      "from": "N11",
+      "to": "N12",
+      "weight": 0.5,
+      "condition": "ring_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 51,
+      "from": "N12",
+      "to": "N13",
+      "weight": 0.5,
+      "condition": "ring_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 52,
+      "from": "N13",
+      "to": "N14",
+      "weight": 0.5,
+      "condition": "ring_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 53,
+      "from": "N14",
+      "to": "N15",
+      "weight": 0.5,
+      "condition": "ring_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 54,
+      "from": "N15",
+      "to": "N16",
+      "weight": 0.5,
+      "condition": "ring_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 55,
+      "from": "N16",
+      "to": "N17",
+      "weight": 0.5,
+      "condition": "ring_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 56,
+      "from": "N17",
+      "to": "N18",
+      "weight": 0.5,
+      "condition": "ring_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 57,
+      "from": "N18",
+      "to": "N19",
+      "weight": 0.5,
+      "condition": "ring_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 58,
+      "from": "N19",
+      "to": "N20",
+      "weight": 0.5,
+      "condition": "ring_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 59,
+      "from": "N20",
+      "to": "N21",
+      "weight": 0.5,
+      "condition": "ring_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 60,
+      "from": "N21",
+      "to": "N22",
+      "weight": 0.5,
+      "condition": "ring_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 61,
+      "from": "N22",
+      "to": "N23",
+      "weight": 0.5,
+      "condition": "ring_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 62,
+      "from": "N23",
+      "to": "N24",
+      "weight": 0.5,
+      "condition": "ring_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 63,
+      "from": "N24",
+      "to": "N25",
+      "weight": 0.5,
+      "condition": "ring_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 64,
+      "from": "N25",
+      "to": "N26",
+      "weight": 0.5,
+      "condition": "ring_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 65,
+      "from": "N26",
+      "to": "N27",
+      "weight": 0.5,
+      "condition": "ring_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 66,
+      "from": "N27",
+      "to": "N28",
+      "weight": 0.5,
+      "condition": "ring_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 67,
+      "from": "N28",
+      "to": "N29",
+      "weight": 0.5,
+      "condition": "ring_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 68,
+      "from": "N29",
+      "to": "N30",
+      "weight": 0.5,
+      "condition": "ring_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 69,
+      "from": "N30",
+      "to": "N31",
+      "weight": 0.5,
+      "condition": "ring_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 70,
+      "from": "N31",
+      "to": "N32",
+      "weight": 0.5,
+      "condition": "ring_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 71,
+      "from": "N32",
+      "to": "N33",
+      "weight": 0.5,
+      "condition": "ring_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 72,
+      "from": "N33",
+      "to": "N34",
+      "weight": 0.5,
+      "condition": "ring_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 73,
+      "from": "N34",
+      "to": "N35",
+      "weight": 0.5,
+      "condition": "ring_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 74,
+      "from": "N35",
+      "to": "N36",
+      "weight": 0.5,
+      "condition": "ring_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 75,
+      "from": "N36",
+      "to": "N01",
+      "weight": 0.5,
+      "condition": "ring_traversal",
+      "bidirectional": true
+    },
+    {
+      "id": 76,
+      "from": "N01",
+      "to": "P01",
+      "weight": 0.4,
+      "condition": "spoke_connection",
+      "bidirectional": true
+    },
+    {
+      "id": 77,
+      "from": "N02",
+      "to": "D02",
+      "weight": 0.4,
+      "condition": "spoke_connection",
+      "bidirectional": true
+    },
+    {
+      "id": 78,
+      "from": "N03",
+      "to": "L03",
+      "weight": 0.4,
+      "condition": "spoke_connection",
+      "bidirectional": true
+    },
+    {
+      "id": 79,
+      "from": "N04",
+      "to": "R04",
+      "weight": 0.4,
+      "condition": "spoke_connection",
+      "bidirectional": true
+    },
+    {
+      "id": 80,
+      "from": "N05",
+      "to": "B05",
+      "weight": 0.4,
+      "condition": "spoke_connection",
+      "bidirectional": true
+    },
+    {
+      "id": 81,
+      "from": "N06",
+      "to": "P06",
+      "weight": 0.4,
+      "condition": "spoke_connection",
+      "bidirectional": true
+    },
+    {
+      "id": 82,
+      "from": "N07",
+      "to": "D01",
+      "weight": 0.4,
+      "condition": "spoke_connection",
+      "bidirectional": true
+    },
+    {
+      "id": 83,
+      "from": "N08",
+      "to": "L02",
+      "weight": 0.4,
+      "condition": "spoke_connection",
+      "bidirectional": true
+    },
+    {
+      "id": 84,
+      "from": "N09",
+      "to": "R03",
+      "weight": 0.4,
+      "condition": "spoke_connection",
+      "bidirectional": true
+    },
+    {
+      "id": 85,
+      "from": "N10",
+      "to": "B04",
+      "weight": 0.4,
+      "condition": "spoke_connection",
+      "bidirectional": true
+    },
+    {
+      "id": 86,
+      "from": "N11",
+      "to": "P05",
+      "weight": 0.4,
+      "condition": "spoke_connection",
+      "bidirectional": true
+    },
+    {
+      "id": 87,
+      "from": "N12",
+      "to": "D06",
+      "weight": 0.4,
+      "condition": "spoke_connection",
+      "bidirectional": true
+    },
+    {
+      "id": 88,
+      "from": "N13",
+      "to": "L01",
+      "weight": 0.4,
+      "condition": "spoke_connection",
+      "bidirectional": true
+    },
+    {
+      "id": 89,
+      "from": "N14",
+      "to": "R02",
+      "weight": 0.4,
+      "condition": "spoke_connection",
+      "bidirectional": true
+    },
+    {
+      "id": 90,
+      "from": "N15",
+      "to": "B03",
+      "weight": 0.4,
+      "condition": "spoke_connection",
+      "bidirectional": true
+    },
+    {
+      "id": 91,
+      "from": "N16",
+      "to": "P04",
+      "weight": 0.4,
+      "condition": "spoke_connection",
+      "bidirectional": true
+    },
+    {
+      "id": 92,
+      "from": "N17",
+      "to": "D05",
+      "weight": 0.4,
+      "condition": "spoke_connection",
+      "bidirectional": true
+    },
+    {
+      "id": 93,
+      "from": "N18",
+      "to": "L06",
+      "weight": 0.4,
+      "condition": "spoke_connection",
+      "bidirectional": true
+    },
+    {
+      "id": 94,
+      "from": "N19",
+      "to": "R01",
+      "weight": 0.4,
+      "condition": "spoke_connection",
+      "bidirectional": true
+    },
+    {
+      "id": 95,
+      "from": "N20",
+      "to": "B02",
+      "weight": 0.4,
+      "condition": "spoke_connection",
+      "bidirectional": true
+    },
+    {
+      "id": 96,
+      "from": "N01",
+      "to": "C01",
+      "weight": 0.3,
+      "condition": "return_path",
+      "bidirectional": true
+    },
+    {
+      "id": 97,
+      "from": "N04",
+      "to": "C01",
+      "weight": 0.3,
+      "condition": "return_path",
+      "bidirectional": true
+    },
+    {
+      "id": 98,
+      "from": "N07",
+      "to": "C01",
+      "weight": 0.3,
+      "condition": "return_path",
+      "bidirectional": true
+    },
+    {
+      "id": 99,
+      "from": "N10",
+      "to": "C01",
+      "weight": 0.3,
+      "condition": "return_path",
+      "bidirectional": true
+    },
+    {
+      "id": 100,
+      "from": "N13",
+      "to": "C01",
+      "weight": 0.3,
+      "condition": "return_path",
+      "bidirectional": true
+    },
+    {
+      "id": 101,
+      "from": "N16",
+      "to": "C01",
+      "weight": 0.3,
+      "condition": "return_path",
+      "bidirectional": true
+    },
+    {
+      "id": 102,
+      "from": "N19",
+      "to": "C01",
+      "weight": 0.3,
+      "condition": "return_path",
+      "bidirectional": true
+    },
+    {
+      "id": 103,
+      "from": "N22",
+      "to": "C01",
+      "weight": 0.3,
+      "condition": "return_path",
+      "bidirectional": true
+    },
+    {
+      "id": 104,
+      "from": "N25",
+      "to": "C01",
+      "weight": 0.3,
+      "condition": "return_path",
+      "bidirectional": true
+    },
+    {
+      "id": 105,
+      "from": "N28",
+      "to": "C01",
+      "weight": 0.3,
+      "condition": "return_path",
+      "bidirectional": true
+    },
+    {
+      "id": 106,
+      "from": "N31",
+      "to": "C01",
+      "weight": 0.3,
+      "condition": "return_path",
+      "bidirectional": true
+    },
+    {
+      "id": 107,
+      "from": "N34",
+      "to": "C01",
+      "weight": 0.3,
+      "condition": "return_path",
+      "bidirectional": true
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842]
+   /Contents 4 0 R /Resources << /Font << /F1 5 0 R /F2 6 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 3535 >>
+stream
+BT /F2 20 Tf 40 780 Td (Mystic Map v1.0 ? Canonical Legend) Tj ET
+BT /F1 9 Tf 40 744 Td (Author: Mohammad | License: CC BY-NC | Date: 2026-04-17) Tj ET
+BT /F1 9 Tf 40 731 Td (67 nodes | 96 transitions | Schema v1.1-copilot) Tj ET
+0.3 0.3 0.3 RG 40 718 m 555 718 l 0.5 w S
+BT /F2 16 Tf 40 698 Td (Symbol Definitions) Tj ET
+BT /F1 9 Tf 40 666 Td (OUROBOROS \(C01\) ? Central Nexus. The origin and convergence of all paths.) Tj ET
+BT /F1 9 Tf 40 653 Td (   Color: Gold \(#D4AF37\) | Weight: 1.0 | Hexagram: I - Creative) Tj ET
+BT /F1 9 Tf 40 632 Td (PHOENIX \(P01-P06\) ? Rebirth cluster. Transformation through fire.) Tj ET
+BT /F1 9 Tf 40 619 Td (   Color: Crimson \(#C62828\) | Nodes: Rebirth, Ignition, Ember, Ascent, Corona, Zenith) Tj ET
+BT /F1 9 Tf 40 598 Td (DRAGON \(D01-D06\) ? Power cluster. Elemental force and sovereignty.) Tj ET
+BT /F1 9 Tf 40 585 Td (   Color: Verdant \(#6BCB77\) | Nodes: Scale, Fang, Coil, Wing, Breath, Crown) Tj ET
+BT /F1 9 Tf 40 564 Td (LION \(L01-L06\) ? Courage cluster. Strength and noble authority.) Tj ET
+BT /F1 9 Tf 40 551 Td (   Color: Amber \(#FFC857\) | Nodes: Mane, Roar, Stride, Pride, Heart, Throne) Tj ET
+BT /F1 9 Tf 40 530 Td (RAVEN \(R01-R06\) ? Wisdom cluster. Insight and shadow knowledge.) Tj ET
+BT /F1 9 Tf 40 517 Td (   Color: Azure \(#4D96FF\) | Nodes: Feather, Eye, Claw, Shadow, Whisper, Oracle) Tj ET
+BT /F1 9 Tf 40 496 Td (BUTTERFLY \(B01-B06\) ? Heart cluster. Metamorphosis and grace.) Tj ET
+BT /F1 9 Tf 40 483 Td (   Color: Violet \(#8A2BE2\) | Nodes: Silk, Petal, Drift, Spiral, Bloom, Chrysalis) Tj ET
+BT /F1 9 Tf 40 462 Td (GENERIC NODES \(N01-N36\) ? Interstitial ring. 36 waypoints connecting clusters.) Tj ET
+BT /F1 9 Tf 40 449 Td (   Color: Silver \(#C0C0C0\) | Dormant: N08, N16, N24, N32) Tj ET
+0.3 0.3 0.3 RG 40 428 m 555 428 l 0.5 w S
+BT /F2 16 Tf 40 408 Td (Transition Types) Tj ET
+BT /F1 9 Tf 40 376 Td (intention_declared ? C01 to cluster heads \(bidirectional, w:1.0\)) Tj ET
+BT /F1 9 Tf 40 363 Td (cluster_traversal ? Intra-cluster ring closure \(bidirectional, w:0.8\)) Tj ET
+BT /F1 9 Tf 40 350 Td (bridge_crossing ? Inter-cluster bridges \(bidirectional, w:0.6\)) Tj ET
+BT /F1 9 Tf 40 337 Td (spoke_connection ? N-ring to cluster nodes \(bidirectional, w:0.4\)) Tj ET
+BT /F1 9 Tf 40 324 Td (return_path ? N-ring back to C01 \(bidirectional, w:0.3\)) Tj ET
+BT /F1 9 Tf 40 311 Td (generic_traversal ? N-ring self/neighbor loops \(bidirectional, w:0.5\)) Tj ET
+0.3 0.3 0.3 RG 40 290 m 555 290 l 0.5 w S
+BT /F2 16 Tf 40 270 Td (Activation Prompts) Tj ET
+BT /F1 9 Tf 40 238 Td (To enter a cluster: declare intention at C01, then traverse to cluster head.) Tj ET
+BT /F1 9 Tf 40 225 Td (To cross clusters: reach a cluster's final node \(X06\), then bridge to next head.) Tj ET
+BT /F1 9 Tf 40 212 Td (To reach Nexus: any N-ring node with return_path leads back to C01.) Tj ET
+BT /F1 9 Tf 40 199 Td (HARDSTOP: a state with no outgoing transitions; must reset to C01.) Tj ET
+BT /F2 16 Tf 40 178 Td (Example Sequences) Tj ET
+BT /F1 9 Tf 40 146 Td (Phoenix Circuit:  C01 -> P01 -> P02 -> P03 -> P04 -> P05 -> P06 -> C01) Tj ET
+BT /F1 9 Tf 40 133 Td (Cross-Bridge:     C01 -> P01 -> ... -> P06 -> D01 -> ... -> D06 -> L01) Tj ET
+BT /F1 9 Tf 40 120 Td (N-Ring Spoke:     C01 -> N01 -> P01 \(spoke\) or N01 -> C01 \(return\)) Tj ET
+BT /F1 9 Tf 40 107 Td (Full Traversal:   C01 -> P01..P06 -> D01..D06 -> L01..L06 -> R01..R06 -> B01..B06 ->) Tj ET
+BT /F1 9 Tf 40 94 Td (C01) Tj ET
+0.3 0.3 0.3 RG 40 73 m 555 73 l 0.5 w S
+BT /F2 16 Tf 40 53 Td (Node Index \(All 67\)) Tj ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000254 00000 n 
+0000003841 00000 n 
+0000003938 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R
+   /Info << /Title (Mystic Map v1.0 - Canonical Legend) /Author (Mohammad) /Creator (Mystic Map Package) >> >>
+startxref
+4040
+%%EOF
