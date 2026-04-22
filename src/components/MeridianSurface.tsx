@@ -8,6 +8,18 @@ interface MeridianSurfaceProps {
   mode?: "SCAN" | "FOCUS" | "SIMULATE";
 }
 
+/**
+ * Renders the Meridian telemetry UI with three tabs (MAP, ENGINE, GUARDIANS) and a mode-specific theme.
+ *
+ * When `telemetry` is `null`, displays a centered initializing placeholder. Otherwise the component derives
+ * safe fallback objects for operator, metrics, decision loop, path map, and guardians and renders:
+ * a header with operator and top-line stats, a left sidebar of metrics and loop statuses, a main tabbed
+ * visualizer area, and a footer of operator attributes.
+ *
+ * @param props.telemetry - Telemetry data used to populate the UI; may be `null` to show the initializing placeholder.
+ * @param props.mode - Visual mode that determines the theme color. One of `"SCAN"`, `"FOCUS"`, or `"SIMULATE"`. Defaults to `"SCAN"`.
+ * @returns A JSX element containing the full MeridianSurface interface.
+ */
 export default function MeridianSurface({ telemetry, mode = "SCAN" }: MeridianSurfaceProps) {
   const [activeTab, setActiveTab] = useState<"MAP" | "ENGINE" | "GUARDIANS">("MAP");
 
@@ -164,6 +176,14 @@ export default function MeridianSurface({ telemetry, mode = "SCAN" }: MeridianSu
   );
 }
 
+/**
+ * Displays a compact header statistic with an uppercase label and a colored value.
+ *
+ * @param label - Short uppercase label shown above the value.
+ * @param value - Rendered value content (text or element) shown prominently.
+ * @param color - CSS color applied to the value text.
+ * @returns The header statistic element.
+ */
 function HeaderStat({ label, value, color }: { label: string; value: ReactNode; color: string }) {
   return (
     <div className="flex flex-col items-center">
@@ -173,6 +193,14 @@ function HeaderStat({ label, value, color }: { label: string; value: ReactNode; 
   );
 }
 
+/**
+ * Renders a labeled horizontal percentage bar with a numeric readout and animated fill.
+ *
+ * @param label - Label displayed above the bar.
+ * @param value - Metric interpreted as a percentage; non-finite values become 0 and the value is clamped to the range 0–100.
+ * @param color - CSS color used for the fill and numeric value text (default `#00eaff`).
+ * @returns The JSX element representing the metric bar.
+ */
 function MetricBar({ label, value, color = "#00eaff" }: { label: string; value: number; color?: string }) {
   const clamped = Math.max(0, Math.min(100, Number.isFinite(value) ? value : 0));
   return (
@@ -188,6 +216,14 @@ function MetricBar({ label, value, color = "#00eaff" }: { label: string; value: 
   );
 }
 
+/**
+ * Renders a compact derived-metric card with a label, a normalized numeric value, and a sublabel.
+ *
+ * @param label - Title text displayed in uppercase at the top-left of the card
+ * @param value - Numeric metric; non-finite values are treated as `0` and the displayed value is `value / 100` formatted to two decimal places
+ * @param sub - Small uppercase sublabel shown beneath the numeric value
+ * @returns The rendered React element representing the derived metric card
+ */
 function DerivedMetric({ label, value, sub }: { label: string; value: number; sub: string }) {
   const safe = Number.isFinite(value) ? value : 0;
   return (
@@ -201,6 +237,15 @@ function DerivedMetric({ label, value, sub }: { label: string; value: number; su
   );
 }
 
+/**
+ * Renders a compact status indicator for a decision-loop step.
+ *
+ * Displays a colored dot and a two-line label/status row; the dot and status text change styling for specific `status` values.
+ *
+ * @param label - Short descriptor for the loop step shown on the left.
+ * @param status - Current step state; when `status` is `"Complete"` the indicator is styled as complete (green), when `"In-Motion"` it is styled as in-progress (cyan with pulse), otherwise it is shown in a muted/low-opacity style.
+ * @returns A JSX element containing the status indicator (dot + label/status).
+ */
 function LoopStatus({ label, status }: { label: string; status: string }) {
   const isComplete = status === "Complete";
   const isInMotion = status === "In-Motion";
@@ -215,6 +260,15 @@ function LoopStatus({ label, status }: { label: string; status: string }) {
   );
 }
 
+/**
+ * Renders a tab selector button with an icon and label.
+ *
+ * @param active - Whether the tab is currently active; controls styling and underline indicator.
+ * @param onClick - Click handler invoked when the button is pressed.
+ * @param label - Text label displayed in uppercase beside the icon.
+ * @param icon - Icon node rendered to the left of the label.
+ * @returns A JSX element representing the tab button with active and inactive visual styles.
+ */
 function TabButton({ active, onClick, label, icon }: { active: boolean; onClick: () => void; label: string; icon: ReactNode }) {
   return (
     <button onClick={onClick} className={`px-6 flex items-center gap-2 border-r border-[#1a3a45] transition-all relative ${active ? "bg-[#0a0c10] text-[#00eaff]" : "opacity-40 hover:opacity-100"}`}>
@@ -225,6 +279,16 @@ function TabButton({ active, onClick, label, icon }: { active: boolean; onClick:
   );
 }
 
+/**
+ * Renders a compact attribute card with an uppercase label and a monospaced numeric value.
+ *
+ * Non-finite `value` inputs are treated as `0` before display.
+ *
+ * @param label - The attribute label shown above the value (rendered uppercase, muted).
+ * @param value - The numeric value to display; non-finite values become `0`.
+ * @param unit - Optional unit string appended directly after the numeric value.
+ * @returns The JSX element representing the attribute card.
+ */
 function Attribute({ label, value, unit = "" }: { label: string; value: number; unit?: string }) {
   const safe = Number.isFinite(value) ? value : 0;
   return (
@@ -235,6 +299,14 @@ function Attribute({ label, value, unit = "" }: { label: string; value: number; 
   );
 }
 
+/**
+ * Renders a four-quadrant path map using the provided directional path collections.
+ *
+ * Each quadrant is a visual grid for one cardinal direction (North, East, South, West)
+ * and receives the corresponding paths from `paths`.
+ *
+ * @param paths - Object containing `north`, `east`, `south`, and `west` arrays of path states used to populate each quadrant
+ */
 function PathMapVisualizer({ paths }: { paths: MeridianTelemetry["pathMap"] }) {
   return (
     <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 1.05 }} className="flex-1 grid grid-cols-2 gap-8">
@@ -246,6 +318,16 @@ function PathMapVisualizer({ paths }: { paths: MeridianTelemetry["pathMap"] }) {
   );
 }
 
+/**
+ * Render a quadrant card that visualizes a list of path states as a 6-column grid of tiles.
+ *
+ * Each tile displays a vertical fill proportional to the path's `value` (clamped to 0–100) and reveals the numeric value on hover.
+ *
+ * @param title - Human-readable title for the quadrant
+ * @param paths - Array of path entries; each should include an `id` and a numeric `value` (interpreted as a percentage)
+ * @param color - Fill color used for the tiles' visual fill
+ * @returns A React element containing the quadrant header and a grid of value-filled tiles
+ */
 function QuadrantGrid({ title, paths, color }: { title: string; paths: PathState[]; color: string }) {
   return (
     <div className="space-y-3 bg-[#00eaff03] border border-[#1a3a4533] p-4 group hover:border-[#ffffff11] transition-colors relative h-full">
@@ -270,6 +352,15 @@ function QuadrantGrid({ title, paths, color }: { title: string; paths: PathState
   );
 }
 
+/**
+ * Render a visual 5-step operational flow that reflects the current decision-loop statuses.
+ *
+ * The component displays the steps: perception, interpretation, decision, action, and learning,
+ * and visually highlights each step according to its status.
+ *
+ * @param loop - An object mapping step keys to status strings. Expected keys: `perception`, `interpretation`, `decision`, `action`, `learning`. Each value may be `"Complete"`, `"In-Motion"`, or any other string; missing keys are treated as `"Idle"`.
+ * @returns A JSX element containing the Engine visualizer with status-marked step nodes and connectors.
+ */
 function EngineVisualizer({ loop }: { loop: MeridianTelemetry["decisionLoop"] }) {
   const steps = [
     { key: "perception", icon: <Eye size={24} />, label: "Perception" },
@@ -304,6 +395,14 @@ function EngineVisualizer({ loop }: { loop: MeridianTelemetry["decisionLoop"] })
   );
 }
 
+/**
+ * Renders a responsive grid of guardian cards showing symbol, status, name, and alignment.
+ *
+ * Each guardian is displayed as a card with a status badge (styled for `ACTIVE` and `REGENERATING`), a name label, and a horizontal alignment bar with a numeric percentage.
+ *
+ * @param guardians - Array of guardian state objects to render as cards.
+ * @returns A React element containing the responsive grid of guardian cards.
+ */
 function GuardianGrid({ guardians }: { guardians: GuardianState[] }) {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex-1 grid grid-cols-2 lg:grid-cols-5 gap-6">

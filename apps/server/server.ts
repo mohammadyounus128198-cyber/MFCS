@@ -42,6 +42,19 @@ let stateHistory: OperatorState[] = [];
 let hashBuffer: StateHash[] = [];
 let snapshots: Map<number, OperatorState> = new Map();
 
+/**
+ * Creates an array of path entries for a quadrant, each with a unique id and initial metrics.
+ *
+ * @param prefix - String prefixed to each path `id` (format: `${prefix}-<index>`)
+ * @returns An array of `PathState` objects with initialized fields:
+ * - `id`: unique identifier using the provided `prefix`
+ * - `value`: initial metric constrained between 0 and 100
+ * - `drift`: small signed drift value
+ * - `risk`: initial risk score (0–100)
+ * - `momentum`: initial momentum (defaults to 50)
+ * - `importance`: initial importance (defaults to 0.1)
+ * - `lastActivation`: ISO timestamp of creation
+ */
 function generatePaths(prefix: string): PathState[] {
   return Array.from({ length: NODES_PER_QUADRANT }).map((_, i) => ({
     id: `${prefix}-${i + 1}`,
@@ -105,6 +118,11 @@ const guardrailChecks = [
   },
 ];
 
+/**
+ * Identifies high-value "hotspot" paths in the state's quadrant path map and reports their count and density.
+ *
+ * @returns `hotspotCount` — number of paths with `value` greater than 85; `criticalDensity` — fraction of all quadrant paths that are hotspots (a number between 0 and 1)
+ */
 function detectPatterns(state: OperatorState) {
   const all = [
     ...state.telemetry.pathMap.north,
@@ -116,6 +134,12 @@ function detectPatterns(state: OperatorState) {
   return { hotspotCount: hotspots.length, criticalDensity: hotspots.length / all.length };
 }
 
+/**
+ * Compute a deterministic SHA-256 hex fingerprint of the state's key telemetry and aggregated path values.
+ *
+ * @param state - Operator state; only `tick`, `telemetry.SVI`, and the sum of all `telemetry.pathMap` values are included in the fingerprint
+ * @returns The SHA-256 hex digest representing the serialized fingerprint of those selected state fields
+ */
 function generateStateHash(state: OperatorState): string {
   const content = JSON.stringify({
     tick: state.tick,
@@ -130,6 +154,13 @@ function generateStateHash(state: OperatorState): string {
   return createHash("sha256").update(content).digest("hex");
 }
 
+/**
+ * Advance the operator tick and persist the current state into history, a hash buffer, and periodic snapshots while enforcing configured size limits.
+ *
+ * This mutates module-level in-memory stores: appends a deep-cloned state to `stateHistory`, appends a state-hash record (including selected telemetry and UI focus mode) to `hashBuffer`, and, every configured interval, stores a deep-cloned snapshot in `snapshots`. Older entries are trimmed to respect `STATE_HISTORY_LIMIT`, `HASH_BUFFER_LIMIT`, and `SNAPSHOT_LIMIT`.
+ *
+ * @returns The updated `operatorState` object
+ */
 function sense() {
   operatorState.tick++;
   stateHistory.push(JSON.parse(JSON.stringify(operatorState)));
@@ -154,6 +185,14 @@ function sense() {
   return operatorState;
 }
 
+/**
+ * Recomputes telemetry from current path values, enforces guardrails, and may revert to a recent snapshot when instability is detected.
+ *
+ * Updates the provided state's telemetry (SVI, OM, AP), appends a guardrail event and damps `phi`/`readiness` when the energy envelope is excessive, and sets `resilience.rateLimitState` to `"THROTTLED"` if pattern density is high. If computed stability falls below a threshold and snapshots exist, returns a deep clone of the latest snapshot instead of the mutated state.
+ *
+ * @param state - The operator state to evaluate and potentially mutate
+ * @returns The updated `OperatorState`, or a deep-cloned snapshot `OperatorState` when a stability rollback is triggered
+ */
 function evaluate(state: OperatorState) {
   const allPaths = [
     ...state.telemetry.pathMap.north,
@@ -193,6 +232,12 @@ function evaluate(state: OperatorState) {
   return state;
 }
 
+/**
+ * Updates the operator state in-place according to the current engine phase and applies bounded random drift to quadrant path values.
+ *
+ * @param state - The operator state object to update; the function mutates fields such as `phi`, `readiness`, `energy`, quadrant path values/importance, `ui.targetId`, and `updatedAt`.
+ * @returns The same `OperatorState` instance after modifications.
+ */
 function adjust(state: OperatorState) {
   const driftBound = (state.resilience.rateLimitState === "THROTTLED" ? 0.02 : 0.05) * 100;
   const phase = state.engine.phase;
@@ -239,6 +284,12 @@ function adjust(state: OperatorState) {
   return state;
 }
 
+/**
+ * Advance the operator simulation by one tick and produce the next state.
+ *
+ * @param state - The current operator state to advance
+ * @returns The next OperatorState after evaluation and adjustment for the advanced tick
+ */
 function runStep(state: OperatorState): OperatorState {
   let next = JSON.parse(JSON.stringify(state));
   next.tick++;
@@ -247,6 +298,14 @@ function runStep(state: OperatorState): OperatorState {
   return next;
 }
 
+/**
+ * Advance the operator engine to the next phase and refresh the global operatorState's telemetry, resilience status, and updated timestamp.
+ *
+ * The function computes a small time-based oscillation to update telemetry fields (SVI, CBU, ESQ, OM, AP), sets the resilience rate limit to
+ * "THROTTLED" when observed latency exceeds 200ms (otherwise "STABLE"), and marks the circuit breaker as "CLOSED".
+ *
+ * @param signals - Recent processed signals used to synchronize operator state with external inputs
+ */
 function syncOperatorState(signals: ProcessedSignal[]) {
   const resilience = getResilienceState();
   const seed = Date.now() / 10000;
@@ -272,6 +331,20 @@ function syncOperatorState(signals: ProcessedSignal[]) {
   };
 }
 
+/**
+ * Boots and runs the HTTP and WebSocket server that serves the operator simulation and control APIs.
+ *
+ * Sets up Express middleware and HTTP routes (health, state, annotations, guardrail events, lab view,
+ * stability hashes/snapshots, annotation creation) and two streaming AI endpoints gated by GEMINI_API_KEY.
+ * Mounts Vite middleware in development or serves static assets in production. Creates a WebSocket server
+ * at the root path that accepts client connections, handles intent and UI event messages, implements
+ * keepalive (ping/pong), and broadcasts state updates to connected clients.
+ *
+ * Also starts the simulation and orchestration loops: a short-interval loop (~618ms) that advances sensing,
+ * evaluation, and adjustment and broadcasts updates, and a longer-interval loop (~5000ms) that fetches and
+ * processes external signals, applies guardrail checks, resynchronizes operator resilience/telemetry,
+ * and broadcasts. On critical failure the process exits with code 1.
+ */
 async function startServer() {
   try {
     runKernelDiagnostics();
